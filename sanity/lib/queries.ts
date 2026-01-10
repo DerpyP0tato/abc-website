@@ -16,6 +16,9 @@ export const EVENTS_UPCOMING_QUERY = groq`
     location,
     category,
     coverImage,
+    category,
+    coverImage,
+    shortDescription,
     featured
   }
 `
@@ -29,7 +32,9 @@ export const EVENTS_PAST_QUERY = groq`
     endDateTime,
     location,
     category,
-    coverImage
+    category,
+    coverImage,
+    shortDescription
   }
 `
 
@@ -43,7 +48,9 @@ export const EVENT_FEATURED_QUERY = groq`
     location,
     category,
     coverImage,
-    description
+    coverImage,
+    description,
+    shortDescription
   }
 `
 
@@ -57,7 +64,9 @@ export const EVENT_BY_SLUG_QUERY = groq`
     location,
     category,
     coverImage,
+    coverImage,
     description,
+    shortDescription,
     signupUrl,
     signupButtonText
   }

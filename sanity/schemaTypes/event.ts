@@ -96,6 +96,13 @@ export const event = defineType({
       description: "Main event description (agenda, speakers, what to expect).",
     }),
     defineField({
+      name: "shortDescription",
+      title: "Short Description",
+      type: "text",
+      rows: 3,
+      description: "Brief summary shown on the event card (e.g. 'Learn about strategy consulting...').",
+    }),
+    defineField({
       name: "signupUrl",
       title: "Signup URL",
       type: "url",
@@ -139,6 +146,7 @@ export const event = defineType({
       date: "startDateTime",
       media: "coverImage",
       featured: "featured",
+      shortDescription: "shortDescription",
     },
     prepare(selection) {
       const { title, date, featured } = selection

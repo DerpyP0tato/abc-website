@@ -16,15 +16,17 @@ export function EventCard({ event }: EventCardProps) {
 
   return (
     <Link href={`/events/${event.slug.current}`}>
-      <Card className="group overflow-hidden transition-all hover:shadow-lg">
+      <Card className="group overflow-hidden transition-all hover:shadow-lg h-full flex flex-col">
         {imageUrl && (
-          <div className="relative aspect-video overflow-hidden">
-            <Image
-              src={imageUrl || "/placeholder.svg"}
-              alt={event.title}
-              fill
-              className="object-cover transition-transform group-hover:scale-105"
-            />
+          <div className="p-4 pb-0">
+            <div className="relative aspect-video overflow-hidden rounded-xl">
+              <Image
+                src={imageUrl || "/placeholder.svg"}
+                alt={event.title}
+                fill
+                className="object-cover transition-transform group-hover:scale-105"
+              />
+            </div>
           </div>
         )}
         <CardHeader>
@@ -56,6 +58,11 @@ export function EventCard({ event }: EventCardProps) {
             <MapPin className="h-4 w-4" />
             <span>{event.location}</span>
           </div>
+          {event.shortDescription && (
+            <p className="line-clamp-3 text-sm text-muted-foreground pt-2">
+              {event.shortDescription}
+            </p>
+          )}
         </CardContent>
       </Card>
     </Link>

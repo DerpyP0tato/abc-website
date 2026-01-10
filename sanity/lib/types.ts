@@ -17,6 +17,7 @@ export interface Event {
     }
   }
   description?: PortableTextBlock[]
+  shortDescription?: string
   signupUrl?: string
   signupButtonText?: string
   featured?: boolean

@@ -47,7 +47,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col">
-      <section className="relative overflow-hidden bg-gradient-to-b from-muted/50 to-background py-20 sm:py-32">
+      <section className="relative overflow-hidden bg-gradient-to-b from-muted/50 to-background py-16 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="font-serif text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
@@ -72,7 +72,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 sm:py-32">
+      <section className="py-12 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="font-serif text-3xl font-semibold sm:text-4xl">What We Do</h2>
@@ -101,7 +101,7 @@ export default async function HomePage() {
       </section>
 
       {featuredEvent && (
-        <section className="bg-muted/50 py-24 sm:py-32">
+        <section className="bg-muted/50 py-12 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Featured Event</h2>
@@ -114,7 +114,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="py-24 sm:py-32">
+      <section className="py-12 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Ready to Get Started?</h2>
           <p className="mt-4 text-muted-foreground">
