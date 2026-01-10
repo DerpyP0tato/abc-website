@@ -25,7 +25,7 @@ export function Navbar() {
           {/* Logo on the left */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image
-              src="/images/screenshot-202025-10-08-20at-208.png"
+              src="/images/abc-logo.png"
               alt="ABC Logo"
               width={40}
               height={40}
@@ -40,9 +40,8 @@ export function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  pathname === item.href ? "text-primary" : "text-muted-foreground"
-                }`}
+                className={`text-sm font-medium transition-colors hover:text-primary ${pathname === item.href ? "text-primary" : "text-muted-foreground"
+                  }`}
               >
                 {item.name}
               </Link>
@@ -65,11 +64,10 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${
-                  pathname === item.href
+                className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${pathname === item.href
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
-                }`}
+                  }`}
               >
                 {item.name}
               </Link>
