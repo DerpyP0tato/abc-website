@@ -26,6 +26,9 @@ export interface Event {
 export interface TeamMember {
   _id: string
   name: string
+  slug: {
+    current: string
+  }
   role: string
   linkedinUrl: string
   headshot: {
@@ -34,5 +37,11 @@ export interface TeamMember {
       _type: "reference"
     }
   }
+  email?: string
+  majorYear?: string
+  hometown?: string
+  campusInvolvements?: string
+  professionalExperience?: string
+  interests?: string
   displayOrder: number
 }

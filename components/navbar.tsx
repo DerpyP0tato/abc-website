@@ -31,7 +31,7 @@ export function Navbar() {
               height={40}
               className="h-10 w-10"
             />
-            <span className="font-semibold text-base sm:text-lg text-foreground">Asian Business Collective</span>
+            <span className="font-serif font-bold tracking-tight text-lg sm:text-xl text-foreground">Asian Business Collective</span>
           </Link>
 
           {/* Desktop Navigation on the right */}
@@ -65,8 +65,8 @@ export function Navbar() {
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`block rounded-md px-3 py-2 text-base font-medium transition-colors ${pathname === item.href
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
+                  ? "bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
                   }`}
               >
                 {item.name}

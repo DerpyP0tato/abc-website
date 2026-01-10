@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { EventCard } from "@/components/event-card"
@@ -47,26 +48,56 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col">
-      <section className="relative overflow-hidden bg-gradient-to-b from-muted/50 to-background py-16 sm:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <h1 className="font-serif text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Asian Business Collective
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-pretty">
-              Connecting students to careers in business and technology through mentorship, events, and case
-              competitions.
-            </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button asChild size="lg">
-                <a href="https://forms.gle/" target="_blank" rel="noopener noreferrer">
-                  Join ABC
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/events">View Events</Link>
-              </Button>
+      <section className="relative overflow-hidden py-16 sm:py-24 lg:py-32">
+        {/* Organic Background Blobs */}
+        <div
+          className="absolute -top-24 -left-20 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl filter"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute top-40 right-0 h-96 w-96 rounded-full bg-indigo-500/10 blur-3xl filter"
+          aria-hidden="true"
+        />
+
+        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+            {/* Left Content */}
+            <div className="mx-auto max-w-2xl text-center lg:mx-0 lg:text-left">
+              <h1 className="font-serif text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+                Asian Business Collective
+              </h1>
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-pretty">
+                Connecting students to careers in business and technology through mentorship, events, and case
+                competitions.
+              </p>
+              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start">
+                <Button asChild size="lg">
+                  <a href="https://forms.gle/" target="_blank" rel="noopener noreferrer">
+                    Join ABC
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/events">View Events</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Right Visual with Organic Shape */}
+            <div className="relative mx-auto w-full max-w-md lg:max-w-full">
+              {/* Decorative blob behind image */}
+              <div className="absolute inset-0 translate-x-3 translate-y-3 rotate-6 rounded-[60%_40%_30%_70%/60%_30%_70%_40%] bg-blue-100/50" />
+
+              {/* Image Container */}
+              <div className="relative overflow-hidden rounded-[60%_40%_30%_70%/60%_30%_70%_40%] shadow-xl aspect-square">
+                <Image
+                  src="/placeholder.jpg"
+                  alt="ABC Team"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>

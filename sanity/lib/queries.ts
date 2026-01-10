@@ -76,9 +76,27 @@ export const TEAM_MEMBERS_QUERY = groq`
   *[_type == "teamMember"] | order(displayOrder asc) {
     _id,
     name,
+    slug,
     role,
     linkedinUrl,
     headshot,
     displayOrder
+  }
+`
+
+export const TEAM_MEMBER_BY_SLUG_QUERY = groq`
+  *[_type == "teamMember" && (slug.current == $slug || _id == $slug)][0] {
+    _id,
+    name,
+    slug,
+    role,
+    linkedinUrl,
+    headshot,
+    email,
+    majorYear,
+    hometown,
+    campusInvolvements,
+    professionalExperience,
+    interests
   }
 `
