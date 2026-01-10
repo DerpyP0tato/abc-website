@@ -128,6 +128,8 @@ export default function ContactPage() {
                 </CardHeader>
                 <CardContent>
                   <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Honeypot for spam protection */}
+                    <input type="checkbox" name="botcheck" className="hidden" style={{ display: 'none' }} />
                     <div className="space-y-2">
                       <Label htmlFor="name">Name</Label>
                       <Input

@@ -72,7 +72,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24">
+      <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="font-serif text-3xl font-semibold sm:text-4xl">What We Do</h2>
@@ -101,7 +101,7 @@ export default async function HomePage() {
       </section>
 
       {featuredEvent && (
-        <section className="bg-muted/50 py-16 sm:py-24">
+        <section className="bg-muted/50 py-24 sm:py-32">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Featured Event</h2>
@@ -114,7 +114,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      <section className="py-16 sm:py-24">
+      <section className="py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Ready to Get Started?</h2>
           <p className="mt-4 text-muted-foreground">
