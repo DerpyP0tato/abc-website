@@ -11,8 +11,8 @@ export default async function ContactPage() {
 
   return (
     <div className="flex flex-col">
-      <section className="bg-gradient-to-b from-muted/50 to-background py-20 sm:py-32">
-        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <section className="bg-gradient-to-b from-muted/50 to-background py-10 sm:py-14 w-full">
+        <div className="mx-auto max-w-4xl px-8 text-center sm:px-6 lg:px-8">
           <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl">Get in Touch</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Have questions? Want to get involved? We'd love to hear from you.
@@ -20,11 +20,11 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <section className="py-8 sm:py-12">
+        <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
           <div className="grid gap-12 lg:grid-cols-3">
             <div className="space-y-6 lg:col-span-1">
-              <div>
+              <div className="text-center lg:text-left">
                 <h2 className="font-serif text-2xl font-semibold">Contact Information</h2>
                 <p className="mt-2 text-muted-foreground">Reach out through any of these channels.</p>
               </div>

@@ -109,3 +109,15 @@ export const SETTINGS_QUERY = groq`
     email
   }
 `
+
+export const HOME_PAGE_QUERY = groq`
+  * [_type == "homePage"][0] {
+    featureTitle,
+    featureSubtitle,
+    features[] {
+      title,
+      description,
+      icon
+    }
+  }
+`

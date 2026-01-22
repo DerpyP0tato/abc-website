@@ -1,13 +1,19 @@
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { CheckCircle } from "lucide-react"
+import { client } from "@/sanity/lib/client"
+import { SETTINGS_QUERY } from "@/sanity/lib/queries"
 
 export const metadata = {
   title: "About | Asian Business Collective",
   description: "Learn about the Asian Business Collective and our mission at Binghamton University.",
 }
 
-export default function AboutPage() {
+export const revalidate = 60
+
+export default async function AboutPage() {
+  const settings = await client.fetch(SETTINGS_QUERY).catch(() => null)
+
   const offerings = [
     "Professional workshops and skill-building sessions",
     "Networking events with industry professionals",
@@ -20,7 +26,7 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col">
       <section className="bg-gradient-to-b from-muted/50 to-background py-20 sm:py-32">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl px-8 sm:px-6 lg:px-8">
           <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl">About ABC</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             The Asian Business Collective at Binghamton University is dedicated to empowering students with the skills,
@@ -30,7 +36,7 @@ export default function AboutPage() {
       </section>
 
       <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-4xl px-8 sm:px-6 lg:px-8">
           <div className="space-y-12">
             <div>
               <h2 className="font-serif text-3xl font-semibold">Our Mission</h2>
@@ -74,7 +80,7 @@ export default function AboutPage() {
 
           <div className="mt-12 flex flex-col gap-4 sm:flex-row">
             <Button asChild size="lg">
-              <a href="https://forms.gle/" target="_blank" rel="noopener noreferrer">
+              <a href={settings?.joinLink || "https://forms.gle/"} target="_blank" rel="noopener noreferrer">
                 Join Our Community
               </a>
             </Button>

@@ -27,9 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`} suppressHydrationWarning>
+      <body className={`font-sans antialiased min-h-screen w-full flex flex-col overflow-x-hidden`} suppressHydrationWarning>
         <Navbar />
-        {children}
+        <main className="flex-1 w-full">
+          {children}
+        </main>
         <Footer />
         <Analytics />
       </body>

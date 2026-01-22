@@ -31,7 +31,7 @@ export function Navbar() {
               height={40}
               className="h-10 w-10"
             />
-            <span className="font-serif font-bold tracking-tight text-lg sm:text-xl text-foreground">Asian Business Collective</span>
+            <span className="font-serif font-bold tracking-tight text-base sm:text-xl text-foreground leading-tight max-w-[200px] sm:max-w-none">Asian Business Collective</span>
           </Link>
 
           {/* Desktop Navigation on the right */}

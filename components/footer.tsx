@@ -8,8 +8,8 @@ export async function Footer() {
 
   return (
     <footer className="border-t bg-muted/50">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-8 md:grid-cols-3">
+      <div className="mx-auto max-w-7xl px-8 py-12 sm:px-6 lg:px-8">
+        <div className="grid gap-8 md:grid-cols-3 text-center md:text-left">
           <div>
             <h3 className="font-serif text-lg font-semibold">Asian Business Collective</h3>
             <p className="mt-2 text-sm text-muted-foreground">Binghamton University</p>
@@ -43,7 +43,7 @@ export async function Footer() {
 
           <div>
             <h4 className="text-sm font-medium">Connect With Us</h4>
-            <div className="mt-4 flex gap-4">
+            <div className="mt-4 flex gap-4 justify-center md:justify-start">
               {settings?.instagram && (
                 <a
                   href={settings.instagram}

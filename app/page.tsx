@@ -4,29 +4,32 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { EventCard } from "@/components/event-card"
 import { client } from "@/sanity/lib/client"
-import { EVENT_FEATURED_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries"
+import { EVENT_FEATURED_QUERY, SETTINGS_QUERY, HOME_PAGE_QUERY } from "@/sanity/lib/queries"
 import type { Event } from "@/sanity/lib/types"
 import { Briefcase, Users, Network, Trophy, ArrowRight, ChevronDown } from "lucide-react"
+import { urlFor } from "@/sanity/lib/image"
 
 export const revalidate = 60
 
 async function getData() {
   try {
-    const [event, settings] = await Promise.all([
+    const [event, settings, homePageData] = await Promise.all([
       client.fetch<Event>(EVENT_FEATURED_QUERY),
       client.fetch<{ joinLink?: string }>(SETTINGS_QUERY),
+      client.fetch(HOME_PAGE_QUERY),
     ])
-    return { event, settings }
+    return { event, settings, homePageData }
   } catch (error) {
     console.error("Error fetching data:", error)
-    return { event: null, settings: null }
+    return { event: null, settings: null, homePageData: null }
   }
 }
 
 export default async function HomePage() {
-  const { event: featuredEvent, settings } = await getData()
+  const { event: featuredEvent, settings, homePageData } = await getData()
 
-  const offerings = [
+  // Fallback content if no dynamic data is found
+  const defaultOfferings = [
     {
       icon: Briefcase,
       title: "Professional Development",
@@ -51,6 +54,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col overflow-x-hidden">
+      {/* ... Hero Section remains the same ... */}
       <section className="relative flex min-h-[calc(100vh-4rem)] flex-col justify-center py-16 sm:py-24 lg:py-32">
         {/* Organic Background Blobs */}
         <div
@@ -62,7 +66,7 @@ export default async function HomePage() {
           aria-hidden="true"
         />
 
-        <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <div className="mb-8 flex justify-center">
               <Image
@@ -104,27 +108,56 @@ export default async function HomePage() {
       <section className="py-12 sm:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h2 className="font-serif text-3xl font-semibold sm:text-4xl">What We Do</h2>
-            <p className="mt-4 text-muted-foreground">Empowering the next generation of business leaders</p>
+            <h2 className="font-serif text-3xl font-semibold sm:text-4xl">
+              {homePageData?.featureTitle || "What We Do"}
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              {homePageData?.featureSubtitle || "Empowering the next generation of business leaders"}
+            </p>
           </div>
 
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {offerings.map((offering) => {
-              const Icon = offering.icon
-              return (
-                <Card key={offering.title} className="text-center">
+            {homePageData?.features?.length > 0
+              ? homePageData.features.map((feature: any) => (
+                <Card key={feature.title} className="text-center">
                   <CardHeader>
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                      <Icon className="h-6 w-6 text-primary" />
+                      {feature.icon ? (
+                        <Image
+                          src={urlFor(feature.icon).url()}
+                          alt=""
+                          width={24}
+                          height={24}
+                          className="h-6 w-6 text-primary"
+                          style={{ filter: "invert(0%)" }} // Helper if using black pngs, though SVGs/Images are tricky with color tinting
+                        />
+                      ) : (
+                        <div className="h-6 w-6 bg-primary/20" />
+                      )}
                     </div>
-                    <CardTitle className="mt-4 font-serif text-xl">{offering.title}</CardTitle>
+                    <CardTitle className="mt-4 font-serif text-xl">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{offering.description}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
                   </CardContent>
                 </Card>
-              )
-            })}
+              ))
+              : defaultOfferings.map((offering) => {
+                const Icon = offering.icon
+                return (
+                  <Card key={offering.title} className="text-center">
+                    <CardHeader>
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <CardTitle className="mt-4 font-serif text-xl">{offering.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{offering.description}</p>
+                    </CardContent>
+                  </Card>
+                )
+              })}
           </div>
         </div>
       </section>
