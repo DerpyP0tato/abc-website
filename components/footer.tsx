@@ -38,6 +38,11 @@ export async function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link href="/links" className="text-sm text-muted-foreground hover:text-foreground">
+                  Link Tree
+                </Link>
+              </li>
             </ul>
           </div>
 
