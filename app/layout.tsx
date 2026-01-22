@@ -15,21 +15,8 @@ export const metadata: Metadata = {
     "Connecting students to careers in business and technology through mentorship, events, and case competitions.",
   generator: "v0.app",
   icons: {
-    icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    apple: "/apple-icon.png",
+    icon: "/images/abc-logo.png",
+    apple: "/images/abc-logo.png",
   },
 }
 

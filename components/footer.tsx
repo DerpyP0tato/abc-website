@@ -1,7 +1,11 @@
 import Link from "next/link"
 import { Instagram, Linkedin, Mail } from "lucide-react"
+import { client } from "@/sanity/lib/client"
+import { SETTINGS_QUERY } from "@/sanity/lib/queries"
 
-export function Footer() {
+export async function Footer() {
+  const settings = await client.fetch(SETTINGS_QUERY).catch(() => null)
+
   return (
     <footer className="border-t bg-muted/50">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -40,28 +44,37 @@ export function Footer() {
           <div>
             <h4 className="text-sm font-medium">Connect With Us</h4>
             <div className="mt-4 flex gap-4">
-              <a
-                href="https://instagram.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-              <a
-                href="https://linkedin.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a
-                href="mailto:asianbusinesscollective@gmail.com"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Mail className="h-5 w-5" />
-              </a>
+              {settings?.instagram && (
+                <a
+                  href={settings.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <Instagram className="h-5 w-5" />
+                </a>
+              )}
+              {settings?.linkedin && (
+                <a
+                  href={settings.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              )}
+              {settings?.email && (
+                <a
+                  href={`mailto:${settings.email}`}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <Mail className="h-5 w-5" />
+                </a>
+              )}
+              {!settings?.instagram && !settings?.linkedin && !settings?.email && (
+                <p className="text-sm text-muted-foreground">Contact info not set.</p>
+              )}
             </div>
           </div>
         </div>

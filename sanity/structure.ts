@@ -6,6 +6,10 @@ export const structure = (S: StructureBuilder) =>
     .title("Content")
     .items([
       S.listItem()
+        .title("Site Settings")
+        .child(S.document().schemaType("settings").documentId("settings")),
+      S.divider(),
+      S.listItem()
         .title("Events")
         .icon(CalendarIcon)
         .child(
