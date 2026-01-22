@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client"
-import { LINK_TREE_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries"
+import { LINK_TREE_QUERY, SETTINGS_QUERY, EVENTS_UPCOMING_QUERY } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import Link from "next/link"
 import Image from "next/image"
@@ -9,9 +9,10 @@ import { Button } from "@/components/ui/button"
 export const revalidate = 60
 
 export default async function LinksPage() {
-    const [data, settings] = await Promise.all([
+    const [data, settings, events] = await Promise.all([
         client.fetch(LINK_TREE_QUERY),
         client.fetch(SETTINGS_QUERY).catch(() => null),
+        client.fetch(EVENTS_UPCOMING_QUERY).catch(() => []),
     ])
 
     // If no data is found, show a basic fallback or loading state could be better,
@@ -117,6 +118,37 @@ export default async function LinksPage() {
                         </div>
                     </div>
                 ))}
+
+                {/* Upcoming Events Section */}
+                {events?.length > 0 && (
+                    <div className="space-y-4">
+                        <h2 className="text-center text-lg font-semibold text-slate-700">Upcoming Events</h2>
+                        <div className="space-y-3">
+                            {events.map((event: any) => {
+                                const startDate = new Date(event.startDateTime)
+                                const dateStr = startDate.toLocaleDateString("en-US", {
+                                    month: "short",
+                                    day: "numeric",
+                                })
+                                return (
+                                    <Link
+                                        key={event._id}
+                                        href={`/events/${event.slug.current}`}
+                                        className="group flex w-full items-center rounded-xl border border-slate-200 bg-white p-1 pr-4 transition-all hover:scale-[1.02] hover:border-slate-300 hover:shadow-md"
+                                    >
+                                        <div className="flex h-12 w-16 shrink-0 flex-col items-center justify-center rounded-lg bg-slate-50 text-xs font-medium text-slate-500">
+                                            <span>{dateStr.split(" ")[0]}</span>
+                                            <span className="text-slate-900 font-bold text-sm">{dateStr.split(" ")[1]}</span>
+                                        </div>
+                                        <span className="flex-1 text-center font-medium text-slate-700">{event.title}</span>
+                                        <div className="w-16" />
+                                    </Link>
+                                )
+                            })}
+                        </div>
+                    </div>
+                )}
+
                 {/* Fallback if no sections exist yet */}
                 {!data?.sections && (
                     <div className="text-center text-slate-500">

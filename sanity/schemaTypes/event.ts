@@ -98,6 +98,10 @@ export const event = defineType({
             ],
           },
         },
+        {
+          type: "image",
+          options: { hotspot: true },
+        },
       ],
       validation: (rule) => rule.required(),
       description: "Main event description (agenda, speakers, what to expect).",

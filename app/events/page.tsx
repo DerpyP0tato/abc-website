@@ -1,4 +1,5 @@
 import { EventCard } from "@/components/event-card"
+import { PastEventsList } from "@/components/past-events-list"
 import { client } from "@/sanity/lib/client"
 import { EVENTS_UPCOMING_QUERY, EVENTS_PAST_QUERY } from "@/sanity/lib/queries"
 import type { Event } from "@/sanity/lib/types"
@@ -62,11 +63,7 @@ export default async function EventsPage() {
               <p className="mt-2 text-muted-foreground">Take a look at what we've accomplished</p>
             </div>
 
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {pastEvents.map((event) => (
-                <EventCard key={event._id} event={event} />
-              ))}
-            </div>
+            <PastEventsList events={pastEvents} />
           </div>
         </section>
       )}
