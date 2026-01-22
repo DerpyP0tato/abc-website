@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   title: "Asian Business Collective | Binghamton University",
   description:
     "Connecting students to careers in business and technology through mentorship, events, and case competitions.",
-  generator: "v0.app",
   icons: {
     icon: "/images/abc-logo.png",
     apple: "/images/abc-logo.png",
@@ -27,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased min-h-screen w-full flex flex-col overflow-x-hidden`} suppressHydrationWarning>
+      <body className={`${_geist.className} ${_geistMono.variable} font-sans antialiased min-h-screen w-full flex flex-col overflow-x-hidden`} suppressHydrationWarning>
         <Navbar />
         <main className="flex-1 w-full">
           {children}
