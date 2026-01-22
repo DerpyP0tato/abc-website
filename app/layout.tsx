@@ -1,5 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
+import Script from "next/script"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Navbar } from "@/components/navbar"
@@ -33,6 +34,19 @@ export default function RootLayout({
         </main>
         <Footer />
         <Analytics />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-LD19L3XTKP"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-LD19L3XTKP');
+          `}
+        </Script>
       </body>
     </html>
   )
