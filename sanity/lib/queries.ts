@@ -19,7 +19,9 @@ export const EVENTS_UPCOMING_QUERY = groq`
     category,
     coverImage,
     shortDescription,
-    featured
+    featured,
+    enableGoogleCalendar,
+    allDay
   }
 `
 
@@ -34,7 +36,9 @@ export const EVENTS_PAST_QUERY = groq`
     category,
     category,
     coverImage,
-    shortDescription
+    shortDescription,
+    enableGoogleCalendar,
+    allDay
   }
 `
 
@@ -50,7 +54,9 @@ export const EVENT_FEATURED_QUERY = groq`
     coverImage,
     coverImage,
     description,
-    shortDescription
+    shortDescription,
+    enableGoogleCalendar,
+    allDay
   }
 `
 
@@ -68,7 +74,9 @@ export const EVENT_BY_SLUG_QUERY = groq`
     description,
     shortDescription,
     signupUrl,
-    signupButtonText
+    signupButtonText,
+    enableGoogleCalendar,
+    allDay
   }
 `
 
@@ -118,6 +126,23 @@ export const HOME_PAGE_QUERY = groq`
       title,
       description,
       icon
+    }
+  }
+`
+
+export const LINK_TREE_QUERY = groq`
+  * [_type == "linkTree"][0] {
+    title,
+    description,
+    profileImage,
+    sections[] {
+      sectionTitle,
+      links[] {
+        title,
+        url,
+        image,
+        archived
+      }
     }
   }
 `

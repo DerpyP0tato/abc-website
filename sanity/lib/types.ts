@@ -21,6 +21,8 @@ export interface Event {
   signupUrl?: string
   signupButtonText?: string
   featured?: boolean
+  enableGoogleCalendar?: boolean
+  allDay?: boolean
 }
 
 export interface TeamMember {

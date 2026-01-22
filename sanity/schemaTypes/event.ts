@@ -39,6 +39,13 @@ export const event = defineType({
       description: "Optional end time.",
     }),
     defineField({
+      name: "allDay",
+      title: "All Day Event",
+      type: "boolean",
+      initialValue: false,
+      description: "If enabled, time will be hidden and calendar event will be set to all-day.",
+    }),
+    defineField({
       name: "location",
       title: "Location",
       type: "string",
@@ -121,6 +128,13 @@ export const event = defineType({
       type: "boolean",
       initialValue: false,
       description: "If true, this event can be highlighted on the Home page.",
+    }),
+    defineField({
+      name: "enableGoogleCalendar",
+      title: "Enable 'Add to Google Calendar'",
+      type: "boolean",
+      initialValue: false,
+      description: "If enabled, an 'Add to Calendar' button will appear on the event card.",
     }),
     defineField({
       name: "category",

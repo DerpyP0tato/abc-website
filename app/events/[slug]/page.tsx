@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
-import { Calendar, MapPin, ArrowLeft, ExternalLink } from "lucide-react"
+import { Calendar, MapPin, ArrowLeft, ExternalLink, CalendarPlus } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { client } from "@/sanity/lib/client"
@@ -10,6 +10,7 @@ import type { Event } from "@/sanity/lib/types"
 import { urlFor } from "@/sanity/lib/image"
 import { PortableTextRenderer } from "@/components/portable-text"
 import { groq } from "next-sanity"
+import { getGoogleCalendarUrl } from "@/lib/calendar"
 
 export const revalidate = 60
 
@@ -90,17 +91,40 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                       year: "numeric",
                     })}
                   </div>
-                  <div>
-                    {startDate.toLocaleTimeString("en-US", {
-                      hour: "numeric",
-                      minute: "2-digit",
-                    })}
-                    {endDate &&
-                      ` - ${endDate.toLocaleTimeString("en-US", {
+                  {!event.allDay && (
+                    <div>
+                      {startDate.toLocaleTimeString("en-US", {
                         hour: "numeric",
                         minute: "2-digit",
-                      })}`}
-                  </div>
+                      })}
+                      {endDate &&
+                        ` - ${endDate.toLocaleTimeString("en-US", {
+                          hour: "numeric",
+                          minute: "2-digit",
+                        })}`}
+                    </div>
+                  )}
+                  {event.enableGoogleCalendar && (
+                    <div className="mt-3">
+                      <Button variant="outline" size="sm" asChild className="gap-2 h-8 text-xs">
+                        <a
+                          href={getGoogleCalendarUrl({
+                            title: event.title,
+                            description: event.shortDescription,
+                            location: event.location,
+                            startDateTime: event.startDateTime,
+                            endDateTime: event.endDateTime,
+                            allDay: event.allDay
+                          })}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <CalendarPlus className="h-3.5 w-3.5" />
+                          Add to Calendar
+                        </a>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               </div>
 

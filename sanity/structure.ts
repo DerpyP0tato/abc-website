@@ -1,4 +1,4 @@
-import { CalendarIcon, UsersIcon } from "@sanity/icons"
+import { CalendarIcon, UsersIcon, LinkIcon } from "@sanity/icons"
 import type { StructureBuilder } from "sanity/structure"
 
 export const structure = (S: StructureBuilder) =>
@@ -9,6 +9,10 @@ export const structure = (S: StructureBuilder) =>
         .title("Site Settings")
         .child(S.document().schemaType("settings").documentId("settings")),
       S.divider(),
+      S.listItem()
+        .title("Link Tree")
+        .icon(LinkIcon)
+        .child(S.document().schemaType("linkTree").documentId("linkTree")),
       S.listItem()
         .title("Home Page")
         .child(S.document().schemaType("homePage").documentId("homePage")),
