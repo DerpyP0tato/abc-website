@@ -1,4 +1,4 @@
-import { CalendarIcon, UsersIcon, LinkIcon } from "@sanity/icons"
+import { CalendarIcon, UsersIcon, LinkIcon, DocumentIcon } from "@sanity/icons"
 import type { StructureBuilder } from "sanity/structure"
 
 export const structure = (S: StructureBuilder) =>
@@ -16,6 +16,10 @@ export const structure = (S: StructureBuilder) =>
       S.listItem()
         .title("Home Page")
         .child(S.document().schemaType("homePage").documentId("homePage")),
+      S.listItem()
+        .title("About Page")
+        .icon(DocumentIcon)
+        .child(S.document().schemaType("aboutPage").documentId("aboutPage")),
       S.listItem()
         .title("Events")
         .icon(CalendarIcon)
@@ -69,6 +73,14 @@ export const structure = (S: StructureBuilder) =>
           S.documentTypeList("teamMember")
             .title("Team Members")
             .defaultOrdering([{ field: "displayOrder", direction: "asc" }]),
+        ),
+      S.listItem()
+        .title("Past Executive Boards")
+        .icon(CalendarIcon)
+        .child(
+          S.documentTypeList("pastExecutiveBoard")
+            .title("Past Executive Boards")
+            .defaultOrdering([{ field: "year", direction: "desc" }]),
         ),
       S.divider(),
       S.listItem()

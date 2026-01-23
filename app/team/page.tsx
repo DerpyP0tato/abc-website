@@ -1,8 +1,9 @@
 import { TeamMemberCard } from "@/components/team-member-card"
 import { CompanyLogos } from "@/components/company-logos"
+import { PastBoardsList } from "@/components/past-boards-list"
 import { client } from "@/sanity/lib/client"
-import { TEAM_MEMBERS_QUERY, TEAM_PAGE_QUERY } from "@/sanity/lib/queries"
-import type { TeamMember } from "@/sanity/lib/types"
+import { TEAM_MEMBERS_QUERY, TEAM_PAGE_QUERY, PAST_BOARDS_QUERY } from "@/sanity/lib/queries"
+import type { TeamMember, PastExecutiveBoard } from "@/sanity/lib/types"
 
 export const metadata = {
   title: "Team | Asian Business Collective",
@@ -31,10 +32,21 @@ async function getTeamPageData() {
   }
 }
 
+async function getPastBoards() {
+  try {
+    const boards = await client.fetch<PastExecutiveBoard[]>(PAST_BOARDS_QUERY)
+    return boards
+  } catch (error) {
+    console.error("Error fetching past boards:", error)
+    return []
+  }
+}
+
 export default async function TeamPage() {
-  const [members, teamPageData] = await Promise.all([
+  const [members, teamPageData, pastBoards] = await Promise.all([
     getTeamMembers(),
     getTeamPageData(),
+    getPastBoards(),
   ])
 
   return (
@@ -70,6 +82,20 @@ export default async function TeamPage() {
           description={teamPageData.placementDescription}
           companies={teamPageData.companies}
         />
+      )}
+
+      {/* Legacy / Past Boards Section - After placements */}
+      {pastBoards && pastBoards.length > 0 && (
+        <section className="py-16 sm:py-24 border-t border-slate-100">
+          <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
+            <div className="mb-12">
+              <h2 className="font-serif text-3xl font-bold uppercase tracking-wide text-slate-800">
+                Past Executive Boards
+              </h2>
+            </div>
+            <PastBoardsList boards={pastBoards} />
+          </div>
+        </section>
       )}
     </div>
   )

@@ -5,7 +5,9 @@ import { teamPage } from "./teamPage"
 import { settings } from "./settings"
 import { homePage } from "./homePage"
 import { linkTree } from "./linkTree"
+import { pastExecutiveBoard } from "./pastExecutiveBoard"
+import { aboutPage } from "./aboutPage"
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [event, teamMember, teamPage, settings, homePage, linkTree],
+  types: [event, teamMember, teamPage, settings, homePage, linkTree, pastExecutiveBoard, aboutPage],
 }

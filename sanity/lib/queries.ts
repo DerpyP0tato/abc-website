@@ -109,6 +109,17 @@ export const TEAM_MEMBER_BY_SLUG_QUERY = groq`
   }
 `
 
+export const PAST_BOARDS_QUERY = groq`
+  *[_type == "pastExecutiveBoard"] | order(year desc) {
+    _id,
+    year,
+    members[] {
+      name,
+      linkedinUrl
+    }
+  }
+`
+
 export const SETTINGS_QUERY = groq`
   *[_type == "settings"][0] {
     joinLink,
@@ -144,5 +155,32 @@ export const LINK_TREE_QUERY = groq`
         archived
       }
     }
+  }
+`
+
+export const ABOUT_PAGE_QUERY = groq`
+  *[_type == "aboutPage"][0] {
+    heroPill,
+    heroTitle,
+    heroDescription,
+    missionTitle,
+    missionContent,
+    whyTitle,
+    whyContent,
+    whoTitle,
+    whoContent,
+    foundingYear,
+    foundingTitle,
+    foundingParagraphs,
+    foundingImage,
+    offeringsTitle,
+    offeringsDescription,
+    offerings[] {
+      title,
+      description,
+      icon
+    },
+    ctaTitle,
+    ctaDescription
   }
 `

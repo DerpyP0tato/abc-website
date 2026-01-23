@@ -47,3 +47,51 @@ export interface TeamMember {
   interests?: string
   displayOrder: number
 }
+
+export type TeamPageData = {
+  placementTitle: string
+  placementDescription: string
+  companies: Array<{
+    name: string
+    logo: any
+  }>
+}
+
+export type PastExecutiveBoard = {
+  _id: string
+  year: string
+  members: Array<{
+    name: string
+    linkedinUrl?: string
+  }>
+}
+
+export type AboutPageData = {
+  heroPill?: string
+  heroTitle?: string
+  heroDescription?: string
+  missionTitle?: string
+  missionContent?: string
+  whyTitle?: string
+  whyContent?: string
+  whoTitle?: string
+  whoContent?: string
+  foundingYear?: string
+  foundingTitle?: string
+  foundingParagraphs?: string[]
+  foundingImage?: {
+    asset: {
+      _ref: string
+      _type: "reference"
+    }
+  }
+  offeringsTitle?: string
+  offeringsDescription?: string
+  offerings?: Array<{
+    title: string
+    description: string
+    icon: string
+  }>
+  ctaTitle?: string
+  ctaDescription?: string
+}
