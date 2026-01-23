@@ -25,19 +25,18 @@ export function ContactForm() {
         setSubmitStatus("idle")
 
         try {
-            const response = await fetch("https://api.web3forms.com/submit", {
+            const response = await fetch("/api/contact", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                     Accept: "application/json",
                 },
                 body: JSON.stringify({
-                    access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
                     name: formData.name,
                     email: formData.email,
-                    subject: `New Inquiry: ${formData.inquiryType}`,
+                    inquiryType: formData.inquiryType,
                     message: formData.message,
-                    from_name: "ABC Website",
+                    botcheck: false, // Honeypot field
                 }),
             })
 
@@ -47,7 +46,7 @@ export function ContactForm() {
                 setSubmitStatus("success")
                 setFormData({ name: "", email: "", inquiryType: "", message: "" })
             } else {
-                console.error("Web3Forms error:", result)
+                console.error("API error:", result.message)
                 setSubmitStatus("error")
             }
         } catch (error) {

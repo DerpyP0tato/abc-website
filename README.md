@@ -34,6 +34,9 @@ A modern, maintainable website for the Asian Business Collective student organiz
    ```
    NEXT_PUBLIC_SANITY_PROJECT_ID=your_project_id
    NEXT_PUBLIC_SANITY_DATASET=production
+   NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_web3forms_key
+   NEXT_PUBLIC_GA_ID=your_google_analytics_id
+   SANITY_API_TOKEN=your_sanity_api_token
    ```
 
 5. Run the development server:
