@@ -7,6 +7,7 @@ import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
 import { PageWrapper } from "@/components/page-wrapper"
 import { BackgroundBlobs } from "@/components/background-blobs"
+import { ScrollToTop } from "@/components/scroll-to-top"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${_geist.className} font-sans antialiased min-h-screen w-full flex flex-col overflow-x-hidden`} suppressHydrationWarning>
+        <ScrollToTop />
         <BackgroundBlobs />
         <Navbar />
         <main className="flex-1 w-full">
