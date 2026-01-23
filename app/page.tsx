@@ -46,7 +46,7 @@ export default async function HomePage() {
       {/* Global Background Glow is now handled by layout.tsx */}
 
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-screen text-center overflow-hidden">
+      <section className="relative flex flex-col items-center justify-center min-h-screen pt-16 md:pt-24 text-center overflow-hidden">
         {/* Background Elements moved to global container */}
 
         <div className="container px-4 md:px-6 relative z-10">
