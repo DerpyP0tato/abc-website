@@ -5,6 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Navbar } from "@/components/navbar"
 import { Footer } from "@/components/footer"
+import { PageWrapper } from "@/components/page-wrapper"
+import { BackgroundBlobs } from "@/components/background-blobs"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -28,9 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${_geist.className} font-sans antialiased min-h-screen w-full flex flex-col overflow-x-hidden`} suppressHydrationWarning>
+        <BackgroundBlobs />
         <Navbar />
         <main className="flex-1 w-full">
-          {children}
+          <PageWrapper>
+            {children}
+          </PageWrapper>
         </main>
         <Footer />
         <Analytics />

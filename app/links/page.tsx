@@ -22,7 +22,7 @@ export default async function LinksPage() {
     // or just handle empty state carefully.
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-4 py-12 flex flex-col items-center">
+        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-4 pt-8 pb-12 md:pt-12 flex flex-col items-center">
             {/* Profile Section */}
             <div className="mb-8 flex flex-col items-center text-center">
                 {data?.profileImage ? (

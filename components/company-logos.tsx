@@ -22,77 +22,87 @@ export function CompanyLogos({ title, description, companies }: CompanyLogosProp
 
     if (!companies || companies.length === 0) return null
 
-    // Circular/Elliptical distribution slots
-    // Calculated to form a rough circle around the center text
+    // Balanced "Ring" distribution that looks good with few or many logos.
+    // Order is strictly "Opposite & Across" to paint the canvas evenly.
+    // Safe margins adjusted to prevent cutoff: ~10% to ~90%
     const slots = [
-        // 1. Cardinal Directions (Top, Bottom, Left, Right)
-        { top: '12%', left: '50%' },   // Top (12 o'clock) - moved down
-        { top: '88%', left: '50%' },   // Bottom (6 o'clock) - moved up
-        { top: '50%', left: '6%' },    // Left (9 o'clock) - moved in
-        { top: '50%', left: '94%' },   // Right (3 o'clock) - moved in
+        // --- PRIMARY ANCHORS (The Corners) ---
+        // 1. Top-Left
+        { top: '20%', left: '15%' },
+        // 2. Bottom-Right
+        { top: '80%', left: '85%' },
+        // 3. Top-Right
+        { top: '20%', left: '85%' },
+        // 4. Bottom-Left
+        { top: '80%', left: '15%' },
 
-        // 2. Diagonals (The "Corners" of the circle)
-        { top: '22%', left: '22%' },   // Top-Left - moved in
-        { top: '78%', left: '78%' },   // Bottom-Right - moved in
-        { top: '22%', left: '78%' },   // Top-Right - moved in
-        { top: '78%', left: '22%' },   // Bottom-Left - moved in
+        // --- SECONDARY ANCHORS (The Mids) ---
+        // 5. Mid-Left (Wide)
+        { top: '50%', left: '8%' },
+        // 6. Mid-Right (Wide)
+        { top: '50%', left: '92%' },
 
-        // 3. Intermediate positions 
-        { top: '15%', left: '35%' },
-        { top: '15%', left: '65%' },
+        // 7. Top-Mid
+        { top: '12%', left: '50%' },
+        // 8. Bottom-Mid
+        { top: '88%', left: '50%' },
 
-        { top: '85%', left: '35%' },
-        { top: '85%', left: '65%' },
+        // --- TERTIARY FILLERS (Connecting the dots) ---
+        // 9. Top-Left/Mid Connection
+        { top: '30%', left: '30%' },
+        // 10. Bottom-Right/Mid Connection
+        { top: '70%', left: '70%' },
 
-        { top: '35%', left: '10%' },
-        { top: '65%', left: '10%' },
+        // 11. Top-Right/Mid Connection
+        { top: '30%', left: '70%' },
+        // 12. Bottom-Left/Mid Connection
+        { top: '70%', left: '30%' },
 
-        { top: '35%', left: '90%' },
-        { top: '65%', left: '90%' },
+        // 13. Mid-Left Up
+        { top: '35%', left: '5%' },
+        // 14. Mid-Right Down
+        { top: '65%', left: '95%' },
+
+        // 15. Mid-Right Up
+        { top: '35%', left: '95%' },
+        // 16. Mid-Left Down
+        { top: '65%', left: '5%' },
+
+        // 17. Inner Top
+        { top: '25%', left: '42%' },
+        // 18. Inner Bottom
+        { top: '75%', left: '58%' },
+
+        // 19. Inner Bottom-Left
+        { top: '75%', left: '42%' },
+        // 20. Inner Top-Right
+        { top: '25%', left: '58%' },
     ];
 
-    // Priority Order: 
-    // We want to fill the "corners" (diagonals) and edges in a balanced way.
-    // Order: TL, BR, TR, BL (Diagonals), then L, R (Sides), then T, B (Verticals)
-    // This emphasizes the "circle" shape best by hitting the curve points first.
-    const prioritizedSlots = [
-        slots[4], // TL
-        slots[5], // BR
-        slots[6], // TR
-        slots[7], // BL
-        slots[2], // L
-        slots[3], // R
-        slots[0], // T
-        slots[1], // B
-        // Then fills
-        slots[8], slots[9], slots[10], slots[11], slots[12], slots[13], slots[14], slots[15]
-    ];
-
-    // Use slots purely in order to guarantee the "best" slots are used first
-    const activeSlots = prioritizedSlots;
+    // Priority Order: Just use sequential
+    const activeSlots = slots;
 
     return (
-        <section className="relative overflow-hidden py-24 sm:py-32 mb-12 sm:mb-20">
+        <section className="relative overflow-hidden py-32 sm:py-64 mb-8 sm:mb-12">
             <div className="container relative z-10 mx-auto px-4 text-center">
-                <div className="mx-auto max-w-2xl">
-                    <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">{description}</p>
+                <div className="mx-auto max-w-2xl px-6">
+                    <h2 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl">{title}</h2>
+                    <p className="mt-6 text-lg text-muted-foreground leading-relaxed">{description}</p>
                 </div>
             </div>
 
             <div className="pointer-events-none absolute inset-0 mx-auto max-w-7xl overflow-hidden hidden md:block">
                 {mounted &&
                     companies.map((company, i) => {
-                        // Cycle through prioritized slots
+                        // Cycle through slots
                         const slot = activeSlots[i % activeSlots.length];
 
-                        // Pseudo-random values for size and animation
-                        const randomOffset = (seed: number) => ((seed * 9301 + 49297) % 233280) / 233280;
-                        const r1 = randomOffset(i);
-                        const r2 = randomOffset(i * 13);
+                        // Varied sizes to match reference (Small, Medium, Large, XL)
+                        // This creates depth and visual interest
+                        const size = [45, 55, 70, 85][i % 4];
 
-                        // Smaller size: 50px to 80px
-                        const size = 50 + r1 * 30;
+                        // Random delay for organic float feel
+                        const delay = (i * 0.5) % 5;
 
                         return (
                             <div
@@ -103,18 +113,18 @@ export function CompanyLogos({ title, description, companies }: CompanyLogosProp
                                     left: slot.left,
                                     width: `${size}px`,
                                     height: `${size}px`,
-                                    marginLeft: `-${size / 2}px`, // Center the bubble on the coordinate
-                                    marginTop: `-${size / 2}px`,  // Center the bubble on the coordinate
-                                    animation: `float ${3 + r2 * 4}s ease-in-out infinite alternate`,
-                                    animationDelay: `${r1 * 2}s`
+                                    marginLeft: `-${size / 2}px`,
+                                    marginTop: `-${size / 2}px`,
+                                    animation: `float 6s ease-in-out infinite alternate`,
+                                    animationDelay: `${delay}s`
                                 }}
                             >
-                                <div className="relative h-[70%] w-[70%]">
+                                <div className="relative h-[65%] w-[65%]">
                                     <Image
                                         src={urlFor(company).url()}
                                         alt={company.alt || "Company logo"}
                                         fill
-                                        className="object-contain"
+                                        className="object-contain opacity-90"
                                     />
                                 </div>
                             </div>
@@ -125,7 +135,7 @@ export function CompanyLogos({ title, description, companies }: CompanyLogosProp
             <style jsx>{`
         @keyframes float {
           0% { transform: translateY(0); }
-          100% { transform: translateY(-10px); }
+          100% { transform: translateY(-15px); }
         }
       `}</style>
         </section>

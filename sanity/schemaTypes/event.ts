@@ -116,8 +116,8 @@ export const event = defineType({
     defineField({
       name: "signupUrl",
       title: "Signup URL",
-      type: "url",
-      description: "Optional Google Forms link. If provided, a Sign Up button will appear on the event page.",
+      type: "string",
+      description: "Link for the Sign Up button (e.g. https://forms.google.com or www.google.com).",
     }),
     defineField({
       name: "signupButtonText",

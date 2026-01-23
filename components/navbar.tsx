@@ -19,28 +19,28 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <nav className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="fixed top-0 w-full z-50 border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 transition-all duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 md:h-24 items-center justify-between">
           {/* Logo on the left */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
             <Image
               src="/images/abc-logo.png"
               alt="ABC Logo"
-              width={40}
-              height={40}
-              className="h-10 w-10"
+              width={50}
+              height={50}
+              className="h-12 w-12 transition-transform group-hover:scale-105"
             />
-            <span className="font-serif font-bold tracking-tight text-base sm:text-xl text-foreground leading-tight max-w-[200px] sm:max-w-none">Asian Business Collective</span>
+            <span className="font-serif font-bold tracking-tight text-xl sm:text-2xl text-foreground leading-tight max-w-[200px] sm:max-w-none">Asian Business Collective</span>
           </Link>
 
           {/* Desktop Navigation on the right */}
-          <div className="hidden items-center gap-8 md:flex">
+          <div className="hidden items-center gap-10 md:flex">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${pathname === item.href ? "text-primary" : "text-muted-foreground"
+                className={`text-base font-semibold transition-colors hover:text-primary ${pathname === item.href ? "text-primary" : "text-muted-foreground"
                   }`}
               >
                 {item.name}

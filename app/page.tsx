@@ -1,98 +1,83 @@
 import Link from "next/link"
-import Image from "next/image"
+import { ArrowRight, ChevronDown, Calendar, MapPin, Briefcase, Users, CheckCircle2 } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { EventCard } from "@/components/event-card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { client } from "@/sanity/lib/client"
-import { EVENT_FEATURED_QUERY, SETTINGS_QUERY, HOME_PAGE_QUERY } from "@/sanity/lib/queries"
-import type { Event } from "@/sanity/lib/types"
-import { Briefcase, Users, Network, Trophy, ArrowRight, ChevronDown } from "lucide-react"
+import { HOME_PAGE_QUERY, EVENTS_UPCOMING_QUERY } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
+import { EventCard } from "@/components/event-card"
+import { CompanyLogos } from "@/components/company-logos"
+import { BentoGrid } from "@/components/home-about"
+import type { Event } from "@/sanity/lib/types"
 
 export const revalidate = 60
 
-async function getData() {
-  try {
-    const [event, settings, homePageData] = await Promise.all([
-      client.fetch<Event>(EVENT_FEATURED_QUERY),
-      client.fetch<{ joinLink?: string }>(SETTINGS_QUERY),
-      client.fetch(HOME_PAGE_QUERY),
-    ])
-    return { event, settings, homePageData }
-  } catch (error) {
-    console.error("Error fetching data:", error)
-    return { event: null, settings: null, homePageData: null }
-  }
-}
-
 export default async function HomePage() {
-  const { event: featuredEvent, settings, homePageData } = await getData()
+  const [homePageData, upcomingEvents] = await Promise.all([
+    client.fetch(HOME_PAGE_QUERY),
+    client.fetch<Event[]>(EVENTS_UPCOMING_QUERY)
+  ])
 
-  // Fallback content if no dynamic data is found
+  // Default offerings fallback
   const defaultOfferings = [
     {
-      icon: Briefcase,
-      title: "Professional Development",
-      description: "Build skills through workshops, case competitions, and corporate speaker events.",
-    },
-    {
-      icon: Users,
-      title: "Mentorship",
-      description: "Connect with experienced professionals and alumni who guide your career path.",
-    },
-    {
-      icon: Network,
       title: "Networking",
-      description: "Build meaningful relationships with peers and industry leaders.",
+      description: "Connect with industry professionals and alumni from top firms.",
+      icon: Users,
     },
     {
-      icon: Trophy,
-      title: "Case Competitions",
-      description: "Compete in real-world business challenges and showcase your analytical skills.",
+      title: "Workshops",
+      description: "Develop essential skills through hands-on sessions and case studies.",
+      icon: Briefcase,
+    },
+    {
+      title: "Mentorship",
+      description: "Get guidance from experienced peers to navigate your career path.",
+      icon: CheckCircle2,
     },
   ]
 
-  return (
-    <div className="flex flex-col overflow-x-hidden">
-      {/* ... Hero Section remains the same ... */}
-      <section className="relative flex min-h-[calc(100vh-4rem)] flex-col justify-center py-16 sm:py-24 lg:py-32">
-        {/* Organic Background Blobs */}
-        <div
-          className="absolute -top-24 -left-20 h-[500px] w-[500px] rounded-full bg-blue-500/10 blur-[100px]"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute top-20 -right-20 h-[500px] w-[500px] rounded-full bg-indigo-500/10 blur-[100px]"
-          aria-hidden="true"
-        />
+  const hasEvents = upcomingEvents && upcomingEvents.length > 0;
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl px-8 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="mb-8 flex justify-center">
-              <Image
+  return (
+    <div className="flex flex-col min-h-screen relative overflow-x-hidden">
+      {/* Global Background Glow is now handled by layout.tsx */}
+
+      {/* Hero Section */}
+      <section className="relative flex flex-col items-center justify-center min-h-screen text-center overflow-hidden">
+        {/* Background Elements moved to global container */}
+
+        <div className="container px-4 md:px-6 relative z-10">
+          <div className="flex flex-col items-center space-y-8 text-center">
+
+            {/* Logo Cube */}
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 mb-2">
+              <img
                 src="/images/abc-logo.png"
                 alt="ABC Logo"
-                width={160}
-                height={160}
-                className="h-40 w-40"
-                priority
+                className="w-full h-full object-contain"
               />
             </div>
-            <h1 className="font-serif text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Asian Business Collective
-            </h1>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground text-pretty">
-              Connecting students to careers in business and technology through mentorship, events, and case
-              competitions.
-            </p>
-            <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-              <Button asChild size="lg">
-                <a href={settings?.joinLink || "https://forms.gle/"} target="_blank" rel="noopener noreferrer">
+
+            <div className="space-y-4 max-w-3xl">
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-foreground font-serif">
+                {homePageData?.heroTitle || "Asian Business Collective"}
+              </h1>
+              <p className="mx-auto text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl">
+                Connecting students to careers in business and technology through mentorship, events, and case competitions.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <Button asChild size="lg" className="h-12 px-8 text-base">
+                <Link href="/contact">
                   Join ABC
                   <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
+                </Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base">
                 <Link href="/events">View Events</Link>
               </Button>
             </div>
@@ -105,7 +90,45 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 sm:py-20">
+      {/* About Section */}
+      <section className="py-12 sm:py-16">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+            {/* Main About Content - Spans 2 cols on lg */}
+            <div className="flex flex-col justify-center rounded-3xl bg-muted/50 p-8 lg:col-span-2 lg:p-12">
+              <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+                About ABC
+              </h2>
+              <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                The Asian Business Collective at Binghamton University is dedicated to empowering students with the
+                skills, connections, and opportunities needed to succeed in business and technology careers.
+              </p>
+              <div className="mt-8">
+                <Button asChild variant="link" className="px-0 text-lg">
+                  <Link href="/about">Learn More &rarr;</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Visual Stats / Values Grid - 1 col on lg (stacked) */}
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <div className="rounded-3xl bg-blue-500/5 p-8 dark:bg-blue-500/10 transition-colors hover:bg-blue-500/10 dark:hover:bg-blue-500/20">
+                <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                <h3 className="mt-4 font-serif text-xl font-semibold">Growth</h3>
+                <p className="mt-2 text-muted-foreground">Professional workshops & skill-building.</p>
+              </div>
+              <div className="rounded-3xl bg-indigo-500/5 p-8 dark:bg-indigo-500/10 transition-colors hover:bg-indigo-500/10 dark:hover:bg-indigo-500/20">
+                <Users className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+                <h3 className="mt-4 font-serif text-xl font-semibold">Community</h3>
+                <p className="mt-2 text-muted-foreground">A network of ambitious peers & alumni.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features / Offerings Section */}
+      <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h2 className="font-serif text-3xl font-semibold sm:text-4xl">
@@ -121,20 +144,15 @@ export default async function HomePage() {
               ? homePageData.features.map((feature: any) => (
                 <Card key={feature.title} className="text-center">
                   <CardHeader>
-                    <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                      {feature.icon ? (
-                        <Image
+                    {feature.icon && (
+                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                        <img
                           src={urlFor(feature.icon).url()}
                           alt=""
-                          width={24}
-                          height={24}
                           className="h-6 w-6 text-primary"
-                          style={{ filter: "invert(0%)" }} // Helper if using black pngs, though SVGs/Images are tricky with color tinting
                         />
-                      ) : (
-                        <div className="h-6 w-6 bg-primary/20" />
-                      )}
-                    </div>
+                      </div>
+                    )}
                     <CardTitle className="mt-4 font-serif text-xl">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -162,38 +180,85 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {featuredEvent && (
-        <section className="bg-muted/50 py-12 sm:py-20">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Featured Event</h2>
-              <p className="mt-4 text-muted-foreground">Don't miss our upcoming event</p>
-            </div>
-            <div className="mx-auto mt-12 max-w-2xl">
-              <EventCard event={featuredEvent} />
+      <div className="relative overflow-hidden">
+        {/* Shared Background Blobs */}
+        <div
+          className="absolute right-0 top-1/4 h-[600px] w-[600px] rounded-full bg-blue-500/5 blur-[140px]"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[130px]"
+          aria-hidden="true"
+        />
+
+        {/* Upcoming Events Section - Conditional Layout */}
+        <section className="py-12 sm:py-16">
+          <div className="relative z-10 mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-8">
+              {/* Left Column: Heading & CTA */}
+              <div className="text-center lg:text-left">
+                <h2 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+                  Upcoming Events
+                </h2>
+                <p className="mt-4 text-lg leading-relaxed text-muted-foreground max-w-md mx-auto lg:mx-0">
+                  Discover your next opportunity to connect, learn, and grow with us.
+                </p>
+                <div className="mt-8 flex justify-center lg:justify-start">
+                  <Button asChild size="lg" className="font-medium">
+                    <Link href="/events">
+                      View All Events
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+              </div>
+
+              {/* Right Column: Events List or Text Empty State */}
+              <div className="flex flex-col items-center justify-center lg:items-center">
+                {hasEvents ? (
+                  <div className="w-full grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                    {upcomingEvents.slice(0, 2).map((event) => (
+                      <EventCard key={event._id} event={event} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="py-12 text-center text-muted-foreground">
+                    <p className="text-lg">No upcoming events. Check back soon!</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </section>
-      )}
 
-      <section className="py-12 sm:py-20">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Ready to Get Started?</h2>
-          <p className="mt-4 text-muted-foreground">
-            Join a community of ambitious students building their future in business.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <Button asChild size="lg">
-              <a href={settings?.joinLink || "https://forms.gle/"} target="_blank" rel="noopener noreferrer">
-                Join ABC
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/contact">Contact Us</Link>
-            </Button>
+        {/* Featured Event (Optional) */}
+        {/* {featuredEvent && ...} */}
+
+        {/* Ready to Get Started */}
+        <section className="py-12 sm:py-16">
+          <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+            <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Ready to Get Started?</h2>
+            <p className="mt-4 text-muted-foreground">
+              Join the Asian Business Collective today and start your journey.
+            </p>
+            <div className="mt-8 flex justify-center gap-4">
+              <Button asChild size="lg">
+                <Link href="/contact">Join ABC</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link href="/team">Meet the Team</Link>
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Member Offers / Placements */}
+        <CompanyLogos
+          title={homePageData?.placementTitle || "Member Offers"}
+          description={homePageData?.placementDescription || "Our students have earned internships and full time opportunities with top companies in industries ranging from consulting, finance, accounting, law, and much more."}
+          companies={homePageData?.companies || []}
+        />
+      </div>
     </div>
   )
 }

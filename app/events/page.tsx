@@ -3,6 +3,8 @@ import { PastEventsList } from "@/components/past-events-list"
 import { client } from "@/sanity/lib/client"
 import { EVENTS_UPCOMING_QUERY, EVENTS_PAST_QUERY } from "@/sanity/lib/queries"
 import type { Event } from "@/sanity/lib/types"
+import { Calendar } from "lucide-react"
+import { Empty, EmptyHeader, EmptyTitle, EmptyDescription, EmptyMedia } from "@/components/ui/empty"
 
 export const metadata = {
   title: "Events | Asian Business Collective",
@@ -29,7 +31,7 @@ export default async function EventsPage() {
 
   return (
     <div className="flex flex-col">
-      <section className="bg-gradient-to-b from-muted/50 to-background py-10 sm:py-14 w-full">
+      <section className="pt-8 pb-14 w-full md:pt-12">
         <div className="mx-auto max-w-4xl px-8 text-center sm:px-6 lg:px-8">
           <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl">Events</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
@@ -38,22 +40,30 @@ export default async function EventsPage() {
         </div>
       </section>
 
-      {upcomingEvents.length > 0 && (
-        <section className="py-6 sm:py-10">
-          <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-            <div className="mb-12 text-center md:text-left">
-              <h2 className="font-serif text-3xl font-semibold">Upcoming Events</h2>
-              <p className="mt-2 text-muted-foreground">Don't miss these exciting opportunities</p>
-            </div>
+      <section className="py-6 sm:py-10">
+        <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center md:text-left">
+            <h2 className="font-serif text-3xl font-semibold">Upcoming Events</h2>
+            <p className="mt-2 text-muted-foreground">Don't miss these exciting opportunities</p>
+          </div>
 
+          {upcomingEvents.length > 0 ? (
             <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {upcomingEvents.map((event) => (
                 <EventCard key={event._id} event={event} />
               ))}
             </div>
-          </div>
-        </section>
-      )}
+          ) : (
+            <div className="mt-8 py-12 px-6 border bg-muted/30 rounded-2xl flex flex-col items-center justify-center text-center">
+              <div className="h-12 w-12 rounded-full bg-background flex items-center justify-center mb-4 shadow-sm ring-1 ring-border">
+                <Calendar className="h-6 w-6 text-muted-foreground" />
+              </div>
+              <p className="text-xl font-medium text-foreground mb-2">No Upcoming Events</p>
+              <p className="text-lg text-muted-foreground">Stay tuned for future events!</p>
+            </div>
+          )}
+        </div>
+      </section>
 
       {pastEvents.length > 0 && (
         <section className="bg-muted/50 py-16 sm:py-24">
