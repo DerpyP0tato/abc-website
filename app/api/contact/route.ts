@@ -123,6 +123,7 @@ export async function POST(request: NextRequest) {
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
+                'User-Agent': 'ABC Website/1.0',
             },
             body: JSON.stringify({
                 access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
@@ -134,7 +135,17 @@ export async function POST(request: NextRequest) {
             }),
         })
 
-        const result = await web3formsResponse.json()
+        const responseText = await web3formsResponse.text()
+        console.log('Web3Forms response status:', web3formsResponse.status)
+        console.log('Web3Forms response body:', responseText)
+
+        let result
+        try {
+            result = JSON.parse(responseText)
+        } catch (e) {
+            console.error('Failed to parse Web3Forms response as JSON:', e)
+            throw new Error(`Web3Forms API returned invalid JSON (Status ${web3formsResponse.status}): ${responseText.slice(0, 100)}...`)
+        }
 
         if (result.success) {
             return NextResponse.json(
