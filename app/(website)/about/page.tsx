@@ -159,32 +159,6 @@ export default async function AboutPage() {
                         </div>
                     </div>
 
-                    {/* Founding Story */}
-                    <div className="mb-24 rounded-3xl bg-card p-8 sm:p-12 border shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-50/50 dark:bg-blue-500/10 blur-3xl opacity-60" />
-
-                        <div className="relative z-10 grid gap-10 lg:grid-cols-2 lg:gap-12 items-center">
-                            <div>
-                                <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-900/30 px-3 py-1 text-xs font-medium text-blue-700 dark:text-blue-300 mb-6">
-                                    {content.foundingYear}
-                                </span>
-                                <h2 className="font-serif text-2xl font-bold text-foreground mb-6 sm:text-3xl">{content.foundingTitle}</h2>
-                                <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
-                                    <PortableTextRenderer value={content.foundingContent} />
-                                </div>
-                            </div>
-
-                            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg">
-                                <Image
-                                    src={foundingImageUrl}
-                                    alt="ABC Founding Team"
-                                    fill
-                                    className="object-cover object-[center_35%]"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
                     {/* Offerings Grid */}
                     <div className="mb-24">
                         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -213,6 +187,32 @@ export default async function AboutPage() {
                                     </Card>
                                 )
                             })}
+                        </div>
+                    </div>
+
+                    {/* Founding Story */}
+                    <div className="mb-24 rounded-3xl bg-card p-8 sm:p-12 border shadow-sm relative overflow-hidden">
+                        <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-50/50 dark:bg-blue-500/10 blur-3xl opacity-60" />
+
+                        <div className="relative z-10 grid gap-10 lg:grid-cols-2 lg:gap-12 items-center">
+                            <div>
+                                <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-900/30 px-3 py-1 text-xs font-medium text-blue-700 dark:text-blue-300 mb-6">
+                                    {content.foundingYear}
+                                </span>
+                                <h2 className="font-serif text-2xl font-bold text-foreground mb-6 sm:text-3xl">{content.foundingTitle}</h2>
+                                <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
+                                    <PortableTextRenderer value={content.foundingContent} />
+                                </div>
+                            </div>
+
+                            <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg">
+                                <Image
+                                    src={foundingImageUrl}
+                                    alt="ABC Founding Team"
+                                    fill
+                                    className="object-cover object-[center_35%]"
+                                />
+                            </div>
                         </div>
                     </div>
 
