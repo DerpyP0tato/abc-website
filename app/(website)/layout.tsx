@@ -97,7 +97,7 @@ export default async function WebsiteLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const settings = await client.fetch(SETTINGS_QUERY, {}, { next: { revalidate: 0 } }).catch(() => null)
+  const settings = await client.fetch(SETTINGS_QUERY, {}, { next: { revalidate: 60 } }).catch(() => null)
   const enableDarkMode = settings?.enableDarkMode !== false // Default to true if undefined
 
   return (
