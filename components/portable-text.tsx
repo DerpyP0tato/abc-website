@@ -25,6 +25,24 @@ const components: PortableTextComponents = {
       </a>
     ),
   },
+  types: {
+    image: ({ value }: any) => {
+      // Avoid rendering if no asset
+      if (!value?.asset?._ref) return null
+
+      const { urlFor } = require("@/sanity/lib/image") // Inline require to avoid circular dependency if any, or just import top
+      // Actually better to import urlFor at top.
+      return (
+        <div className="my-8 relative w-full h-64 sm:h-80 md:h-96 rounded-lg overflow-hidden bg-muted">
+          <img
+            src={urlFor(value).url()}
+            alt={value.alt || "Event Image"}
+            className="w-full h-full object-contain"
+          />
+        </div>
+      )
+    },
+  },
 }
 
 interface PortableTextRendererProps {

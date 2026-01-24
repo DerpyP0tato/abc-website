@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { ArrowRight, ChevronDown, Calendar, MapPin, Briefcase, Users, CheckCircle2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -11,6 +12,7 @@ import { EventCard } from "@/components/event-card"
 import { CompanyLogos } from "@/components/company-logos"
 import { BentoGrid } from "@/components/home-about"
 import type { Event } from "@/sanity/lib/types"
+import { FeatureCard } from "@/components/feature-card"
 
 export const revalidate = 60
 
@@ -54,10 +56,13 @@ export default async function HomePage() {
 
             {/* Logo Cube */}
             <div className="relative w-32 h-32 sm:w-40 sm:h-40 mb-2">
-              <img
+              <Image
                 src="/images/abc-logo.png"
                 alt="ABC Logo"
+                width={160}
+                height={160}
                 className="w-full h-full object-contain"
+                priority
               />
             </div>
 
@@ -139,41 +144,28 @@ export default async function HomePage() {
             </p>
           </div>
 
+
           <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {homePageData?.features?.length > 0
               ? homePageData.features.map((feature: any) => (
-                <Card key={feature.title} className="text-center">
-                  <CardHeader>
-                    {feature.icon && (
-                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 border border-blue-100 dark:bg-blue-500/10 dark:border-blue-500/20 shadow-sm transition-transform group-hover:scale-110">
-                        <img
-                          src={urlFor(feature.icon).url()}
-                          alt=""
-                          className="h-7 w-7 text-blue-600 dark:text-blue-400 dark:invert"
-                        />
-                      </div>
-                    )}
-                    <CardTitle className="mt-4 font-serif text-xl">{feature.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
-                  </CardContent>
-                </Card>
+                <FeatureCard
+                  key={feature.title}
+                  title={feature.title}
+                  description={feature.description}
+                  icon={feature.icon}
+                  isSanityIcon={true}
+                />
               ))
               : defaultOfferings.map((offering) => {
                 const Icon = offering.icon
                 return (
-                  <Card key={offering.title} className="text-center">
-                    <CardHeader>
-                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 border border-blue-100 dark:bg-blue-500/10 dark:border-blue-500/20 shadow-sm transition-transform group-hover:scale-110">
-                        <Icon className="h-7 w-7 text-blue-600 dark:text-blue-400" />
-                      </div>
-                      <CardTitle className="mt-4 font-serif text-xl">{offering.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{offering.description}</p>
-                    </CardContent>
-                  </Card>
+                  <FeatureCard
+                    key={offering.title}
+                    title={offering.title}
+                    description={offering.description}
+                    icon={<Icon className="h-7 w-7 text-blue-600 dark:text-blue-400" />}
+                    isSanityIcon={false}
+                  />
                 )
               })}
           </div>
@@ -216,9 +208,11 @@ export default async function HomePage() {
               {/* Right Column: Events List or Text Empty State */}
               <div className="flex flex-col items-center justify-center lg:items-center">
                 {hasEvents ? (
-                  <div className="w-full grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                  <div className={`w-full grid gap-6 ${upcomingEvents.length === 1 ? 'place-items-center' : 'sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2'}`}>
                     {upcomingEvents.slice(0, 2).map((event) => (
-                      <EventCard key={event._id} event={event} />
+                      <div key={event._id} className={upcomingEvents.length === 1 ? "w-full max-w-md" : "w-full"}>
+                        <EventCard event={event} />
+                      </div>
                     ))}
                   </div>
                 ) : (
