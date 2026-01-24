@@ -16,7 +16,18 @@ export const metadata = {
 }
 
 // Helper to convert string to Portable Text block
-const toBlock = (text: string) => [{ _type: 'block', children: [{ _type: 'span', text }] }]
+const toBlock = (text: string) => [{
+    _key: Math.random().toString(36).substring(7),
+    _type: 'block',
+    children: [{
+        _key: Math.random().toString(36).substring(7),
+        _type: 'span',
+        text,
+        marks: [],
+    }],
+    markDefs: [],
+    style: 'normal'
+}]
 
 export const revalidate = 60
 
