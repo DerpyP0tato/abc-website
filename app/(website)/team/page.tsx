@@ -6,8 +6,8 @@ import { TEAM_MEMBERS_QUERY, TEAM_PAGE_QUERY, PAST_BOARDS_QUERY } from "@/sanity
 import type { TeamMember, PastExecutiveBoard } from "@/sanity/lib/types"
 
 export const metadata = {
-  title: "Team | Asian Business Collective",
-  description: "Meet the leadership team of the Asian Business Collective at Binghamton University.",
+  title: "Our Leadership Team & Executive Board | Asian Business Collective",
+  description: "Meet the dedicated student leaders of Asian Business Collective at Binghamton University driving professional development and community growth.",
 }
 
 export const revalidate = 60

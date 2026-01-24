@@ -95,7 +95,7 @@ export default async function LinksPage() {
                                     href={link.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex w-full items-center rounded-xl border border-border bg-card p-1 pr-4 transition-all hover:scale-[1.02] hover:border-primary/50 hover:shadow-md"
+                                    className="group flex w-full items-center rounded-xl border-2 border-muted-foreground/40 bg-card/80 backdrop-blur-sm p-1 pr-4 transition-all hover:scale-[1.02] hover:border-primary/60 hover:bg-card hover:shadow-md"
                                 >
                                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-muted">
                                         {link.image ? (
@@ -134,7 +134,7 @@ export default async function LinksPage() {
                                     <Link
                                         key={event._id}
                                         href={`/events/${event.slug.current}`}
-                                        className="group flex w-full items-center rounded-xl border border-border bg-card p-1 pr-4 transition-all hover:scale-[1.02] hover:border-primary/50 hover:shadow-md"
+                                        className="group flex w-full items-center rounded-xl border-2 border-muted-foreground/40 bg-card/80 backdrop-blur-sm p-1 pr-4 transition-all hover:scale-[1.02] hover:border-primary/60 hover:bg-card hover:shadow-md"
                                     >
                                         <div className="flex h-12 w-16 shrink-0 flex-col items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground">
                                             <span>{dateStr.split(" ")[0]}</span>

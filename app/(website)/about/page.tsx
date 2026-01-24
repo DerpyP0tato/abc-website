@@ -11,8 +11,8 @@ import type { AboutPageData } from "@/sanity/lib/types"
 import { PortableTextRenderer } from "@/components/portable-text"
 
 export const metadata = {
-    title: "About | Asian Business Collective",
-    description: "Learn about the Asian Business Collective and our mission at Binghamton University.",
+    title: "About Us - Mission & Values | Asian Business Collective",
+    description: "Learn about the Asian Business Collective's mission to empower students at Binghamton University through mentorship, networking, and professional development in business and technology.",
 }
 
 // Helper to convert string to Portable Text block

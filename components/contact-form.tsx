@@ -98,7 +98,7 @@ export function ContactForm() {
                             value={formData.inquiryType}
                             onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
                             required
-                            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            className="flex h-10 w-full rounded-md border border-input bg-background dark:bg-input/50 px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                         >
                             <option value="">Select an option</option>
                             <option value="general">General Question</option>

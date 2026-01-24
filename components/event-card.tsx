@@ -40,7 +40,7 @@ export function EventCard({ event }: EventCardProps) {
                 {event.title}
               </h3>
             </div>
-            <Badge variant="secondary" className="shrink-0">
+            <Badge variant="default" className="shrink-0">
               {event.category}
             </Badge>
           </div>
@@ -87,7 +87,7 @@ export function EventCard({ event }: EventCardProps) {
             <Button
               variant="outline"
               size="sm"
-              className="w-full h-8 text-xs gap-1.5 bg-background/50 hover:bg-background transition-colors"
+              className="w-full h-8 text-xs gap-1.5 bg-muted/80 border-muted-foreground/30 hover:bg-muted hover:border-muted-foreground/50 hover:text-primary transition-colors"
               onClick={(e) => {
                 e.preventDefault()
                 e.stopPropagation() // Prevent triggering the card click

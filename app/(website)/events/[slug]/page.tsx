@@ -188,7 +188,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
                   )}
 
                   {event.enableGoogleCalendar && (
-                    <Button variant="outline" size="lg" asChild className="w-full">
+                    <Button variant="outline" size="lg" asChild className="w-full bg-muted/80 border-muted-foreground/40 hover:bg-muted hover:border-muted-foreground/60 hover:text-primary">
                       <a
                         href={getGoogleCalendarUrl({
                           title: event.title,

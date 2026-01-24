@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { client } from "@/sanity/lib/client"
-import { HOME_PAGE_QUERY, EVENTS_UPCOMING_QUERY } from "@/sanity/lib/queries"
+import { HOME_PAGE_QUERY, EVENTS_UPCOMING_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import { EventCard } from "@/components/event-card"
 import { CompanyLogos } from "@/components/company-logos"
@@ -17,9 +17,10 @@ import { FeatureCard } from "@/components/feature-card"
 export const revalidate = 60
 
 export default async function HomePage() {
-  const [homePageData, upcomingEvents] = await Promise.all([
+  const [homePageData, upcomingEvents, settings] = await Promise.all([
     client.fetch(HOME_PAGE_QUERY),
-    client.fetch<Event[]>(EVENTS_UPCOMING_QUERY)
+    client.fetch<Event[]>(EVENTS_UPCOMING_QUERY),
+    client.fetch(SETTINGS_QUERY).catch(() => null)
   ])
 
   // Default offerings fallback
@@ -43,8 +44,63 @@ export default async function HomePage() {
 
   const hasEvents = upcomingEvents && upcomingEvents.length > 0;
 
+  // Structured data for SEO
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Asian Business Collective",
+    "alternateName": "ABC",
+    "url": "https://asianbusinesscollective.org",
+    "logo": "https://asianbusinesscollective.org/images/abc-logo.png",
+    "description": "Connecting students to careers in business and technology through mentorship, events, and case competitions at Binghamton University.",
+    "foundingDate": "2019",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Vestal",
+      "addressRegion": "NY",
+      "addressCountry": "US"
+    },
+    "sameAs": [
+      settings?.instagram,
+      settings?.linkedin
+    ].filter(Boolean)
+  }
+
+  const eventsSchema = hasEvents ? {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "itemListElement": upcomingEvents.slice(0, 5).map((event: Event, index: number) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "item": {
+        "@type": "Event",
+        "name": event.title,
+        "startDate": event.startDateTime,
+        "endDate": event.endDateTime,
+        "location": {
+          "@type": "Place",
+          "name": event.location
+        },
+        "description": event.shortDescription,
+        "url": `https://asianbusinesscollective.org/events/${event.slug.current}`
+      }
+    }))
+  } : null
+
   return (
     <div className="flex flex-col min-h-screen relative overflow-x-hidden">
+      {/* JSON-LD Structured Data */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+      />
+      {eventsSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventsSchema) }}
+        />
+      )}
+
       {/* Global Background Glow is now handled by layout.tsx */}
 
       {/* Hero Section */}
@@ -52,10 +108,10 @@ export default async function HomePage() {
         {/* Background Elements moved to global container */}
 
         <div className="container px-6 sm:px-8 md:px-12 relative z-10">
-          <div className="flex flex-col items-center space-y-8 text-center">
+          <div className="flex flex-col items-center space-y-6 text-center">
 
             {/* Logo Cube */}
-            <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-2">
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32">
               <Image
                 src="/images/abc-logo.png"
                 alt="ABC Logo"
@@ -75,7 +131,7 @@ export default async function HomePage() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="h-10 px-6 text-base">
                 <Link href="/contact">
                   Join ABC

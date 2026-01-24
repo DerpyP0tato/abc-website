@@ -7,8 +7,8 @@ import { Calendar } from "lucide-react"
 import { Empty, EmptyHeader, EmptyTitle, EmptyDescription, EmptyMedia } from "@/components/ui/empty"
 
 export const metadata = {
-  title: "Events | Asian Business Collective",
-  description: "Explore upcoming and past events from the Asian Business Collective at Binghamton University.",
+  title: "Events - Workshops, Networking & Competitions | Asian Business Collective",
+  description: "Join Asian Business Collective events at Binghamton University. Attend workshops, networking sessions, case competitions, and professional development events.",
 }
 
 export const revalidate = 60

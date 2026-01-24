@@ -18,12 +18,71 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Asian Business Collective | Binghamton University",
+  metadataBase: new URL('https://asianbusinesscollective.org'),
+  title: {
+    default: "Asian Business Collective | Binghamton University",
+    template: "%s | Asian Business Collective"
+  },
   description:
-    "Connecting students to careers in business and technology through mentorship, events, and case competitions.",
+    "Connecting students to careers in business and technology through mentorship, events, and case competitions at Binghamton University.",
+  keywords: [
+    "Asian Business Collective",
+    "Binghamton University",
+    "business club",
+    "networking",
+    "mentorship",
+    "career development",
+    "student organization",
+    "professional development",
+    "case competitions",
+    "workshops"
+  ],
+  authors: [{ name: "Asian Business Collective" }],
+  creator: "Asian Business Collective",
+  publisher: "Asian Business Collective",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://asianbusinesscollective.org",
+    siteName: "Asian Business Collective",
+    title: "Asian Business Collective | Binghamton University",
+    description:
+      "Connecting students to careers in business and technology through mentorship, events, and case competitions.",
+    images: [
+      {
+        url: "/images/abc-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Asian Business Collective Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Asian Business Collective | Binghamton University",
+    description:
+      "Connecting students to careers in business and technology through mentorship, events, and case competitions.",
+    images: ["/images/abc-logo.png"],
+  },
   icons: {
-    icon: "/images/abc-logo.png",
+    icon: [
+      { url: "/images/abc-logo.png" },
+      { url: "/images/abc-logo.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/abc-logo.png", sizes: "16x16", type: "image/png" },
+    ],
     apple: "/images/abc-logo.png",
+    shortcut: "/images/abc-logo.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 }
 

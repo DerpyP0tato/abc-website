@@ -78,7 +78,7 @@ export default async function TeamMemberPage({ params }: PageProps) {
                     {/* Right Column: Details */}
                     <div className="flex flex-col justify-center space-y-6 lg:col-span-6">
                         <div className="space-y-2">
-                            <h1 className="font-serif text-4xl font-bold tracking-tight text-blue-900 sm:text-5xl">
+                            <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
                                 {member.name}
                             </h1>
                             <p className="text-xl font-medium text-muted-foreground">{member.role}</p>

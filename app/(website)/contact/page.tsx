@@ -6,6 +6,11 @@ import { SETTINGS_QUERY } from "@/sanity/lib/queries"
 
 export const revalidate = 60
 
+export const metadata = {
+  title: "Contact Us - Get in Touch | Asian Business Collective",
+  description: "Contact Asian Business Collective at Binghamton University. Reach out for membership inquiries, partnerships, or questions about our events and programs.",
+}
+
 export default async function ContactPage() {
   const settings = await client.fetch(SETTINGS_QUERY).catch(() => null)
 
