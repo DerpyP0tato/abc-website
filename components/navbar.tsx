@@ -36,7 +36,7 @@ export function Navbar({ enableDarkMode = true }: { enableDarkMode?: boolean }) 
           </Link>
 
           {/* Desktop Navigation on the right */}
-          <div className="hidden items-center gap-10 md:flex">
+          <div className="hidden items-center gap-10 lg:flex">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -51,7 +51,7 @@ export function Navbar({ enableDarkMode = true }: { enableDarkMode?: boolean }) 
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center gap-4 md:hidden">
+          <div className="flex items-center gap-4 lg:hidden">
             {enableDarkMode && <ModeToggle />}
             <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -62,7 +62,7 @@ export function Navbar({ enableDarkMode = true }: { enableDarkMode?: boolean }) 
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="border-t md:hidden">
+        <div className="border-t lg:hidden">
           <div className="space-y-1 px-4 pb-3 pt-2">
             {navItems.map((item) => (
               <Link

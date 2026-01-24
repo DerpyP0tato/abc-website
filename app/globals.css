@@ -49,11 +49,11 @@
   /* Rich Dark Blue/Black */
   --foreground: 210 40% 98%;
 
-  --card: 222.2 84% 6.5%;
-  /* Slightly lighter than background */
+  --card: 222.2 84% 17%;
+  /* Lighter than background for clear separation */
   --card-foreground: 210 40% 98%;
 
-  --popover: 222.2 84% 6.5%;
+  --popover: 222.2 84% 17%;
   /* Match card */
   --popover-foreground: 210 40% 98%;
 
@@ -72,7 +72,7 @@
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 217.2 32.6% 17.5%;
+  --border: 217.2 32.6% 30%;
   --input: 217.2 32.6% 25%;
   /* Lighter input for visibility */
   --ring: 212.7 26.8% 83.9%;

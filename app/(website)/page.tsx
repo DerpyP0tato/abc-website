@@ -51,11 +51,11 @@ export default async function HomePage() {
       <section className="relative flex flex-col items-center justify-center min-h-screen text-center overflow-hidden">
         {/* Background Elements moved to global container */}
 
-        <div className="container px-4 md:px-6 relative z-10">
+        <div className="container px-6 sm:px-8 md:px-12 relative z-10">
           <div className="flex flex-col items-center space-y-8 text-center">
 
             {/* Logo Cube */}
-            <div className="relative w-32 h-32 sm:w-40 sm:h-40 mb-2">
+            <div className="relative w-24 h-24 sm:w-32 sm:h-32 mb-2">
               <Image
                 src="/images/abc-logo.png"
                 alt="ABC Logo"
@@ -67,22 +67,22 @@ export default async function HomePage() {
             </div>
 
             <div className="space-y-4 max-w-3xl">
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl text-foreground font-serif">
-                {homePageData?.heroTitle || "Asian Business Collective"}
+              <h1 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl text-foreground font-serif">
+                {homePageData?.heroTitle || <>Asian Business <br className="hidden sm:inline" /> Collective</>}
               </h1>
-              <p className="mx-auto text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                Connecting students to careers in business and technology through mentorship, events, and case competitions.
+              <p className="mx-auto text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl px-4">
+                Where heritage meets the fast track to success.
               </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Button asChild size="lg" className="h-12 px-8 text-base">
+              <Button asChild size="lg" className="h-10 px-6 text-base">
                 <Link href="/contact">
                   Join ABC
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base">
+              <Button asChild variant="outline" size="lg" className="h-10 px-6 text-base">
                 <Link href="/events">View Events</Link>
               </Button>
             </div>
