@@ -66,7 +66,7 @@ export default async function EventsPage() {
       </section>
 
       {pastEvents.length > 0 && (
-        <section className="bg-muted/50 py-16 sm:py-24">
+        <section className="bg-muted/50 py-12 sm:py-16">
           <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
             <div className="mb-12 text-center md:text-left">
               <h2 className="font-serif text-2xl font-semibold sm:text-3xl">Past Events</h2>
