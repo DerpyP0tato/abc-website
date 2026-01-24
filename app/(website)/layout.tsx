@@ -24,10 +24,15 @@ export const metadata: Metadata = {
     template: "%s | Asian Business Collective"
   },
   description:
-    "Connecting students to careers in business and technology through mentorship, events, and case competitions at Binghamton University.",
+    "Asian Business Collective is the premier Asian student organization at Binghamton University. Join our Asian club for networking, mentorship, and career development opportunities.",
   keywords: [
     "Asian Business Collective",
     "Binghamton University",
+    "asian binghamton university",
+    "asian binghamton",
+    "asian organization binghamton",
+    "asian club binghamton",
+    "asian student organization",
     "business club",
     "networking",
     "mentorship",
@@ -35,7 +40,9 @@ export const metadata: Metadata = {
     "student organization",
     "professional development",
     "case competitions",
-    "workshops"
+    "workshops",
+    "AAPI student group",
+    "Binghamton student clubs"
   ],
   authors: [{ name: "Asian Business Collective" }],
   creator: "Asian Business Collective",
@@ -47,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Asian Business Collective",
     title: "Asian Business Collective | Binghamton University",
     description:
-      "Connecting students to careers in business and technology through mentorship, events, and case competitions.",
+      "The premier Asian student organization at Binghamton University. Join our Asian club for networking, mentorship, and professional development.",
     images: [
       {
         url: "/images/abc-logo.png",
@@ -61,7 +68,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Asian Business Collective | Binghamton University",
     description:
-      "Connecting students to careers in business and technology through mentorship, events, and case competitions.",
+      "The premier Asian student organization at Binghamton University. Join our Asian club for networking and career development.",
     images: ["/images/abc-logo.png"],
   },
   icons: {
