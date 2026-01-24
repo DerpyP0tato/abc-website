@@ -150,8 +150,9 @@ export async function POST(request: NextRequest) {
         }
     } catch (error) {
         console.error('Contact form error:', error)
+        const errorMessage = error instanceof Error ? error.message : String(error)
         return NextResponse.json(
-            { success: false, message: 'An error occurred. Please try again later.' },
+            { success: false, message: `Server Error: ${errorMessage}` },
             { status: 500 }
         )
     }
