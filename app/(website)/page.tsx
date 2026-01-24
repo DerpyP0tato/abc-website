@@ -46,7 +46,7 @@ export default async function HomePage() {
       {/* Global Background Glow is now handled by layout.tsx */}
 
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-screen pt-16 md:pt-24 text-center overflow-hidden">
+      <section className="relative flex flex-col items-center justify-center min-h-screen text-center overflow-hidden">
         {/* Background Elements moved to global container */}
 
         <div className="container px-4 md:px-6 relative z-10">
@@ -95,7 +95,7 @@ export default async function HomePage() {
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
             {/* Main About Content - Spans 2 cols on lg */}
-            <div className="flex flex-col justify-center rounded-3xl bg-muted/50 p-8 lg:col-span-2 lg:p-12">
+            <div className="flex flex-col justify-center rounded-3xl bg-card border p-8 shadow-md lg:col-span-2 lg:p-12">
               <h2 className="font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
                 About ABC
               </h2>
@@ -112,12 +112,12 @@ export default async function HomePage() {
 
             {/* Visual Stats / Values Grid - 1 col on lg (stacked) */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-3xl bg-blue-500/5 p-8 dark:bg-blue-500/10 transition-colors hover:bg-blue-500/10 dark:hover:bg-blue-500/20">
+              <div className="rounded-3xl bg-blue-50/50 border border-blue-100 p-8 shadow-sm dark:bg-blue-500/10 dark:border-blue-500/20 transition-colors hover:shadow-md">
                 <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
                 <h3 className="mt-4 font-serif text-xl font-semibold">Growth</h3>
                 <p className="mt-2 text-muted-foreground">Professional workshops & skill-building.</p>
               </div>
-              <div className="rounded-3xl bg-indigo-500/5 p-8 dark:bg-indigo-500/10 transition-colors hover:bg-indigo-500/10 dark:hover:bg-indigo-500/20">
+              <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-8 shadow-sm dark:bg-indigo-500/10 dark:border-indigo-500/20 transition-colors hover:shadow-md">
                 <Users className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
                 <h3 className="mt-4 font-serif text-xl font-semibold">Community</h3>
                 <p className="mt-2 text-muted-foreground">A network of ambitious peers & alumni.</p>
@@ -145,11 +145,11 @@ export default async function HomePage() {
                 <Card key={feature.title} className="text-center">
                   <CardHeader>
                     {feature.icon && (
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 border border-blue-100 dark:bg-blue-500/10 dark:border-blue-500/20 shadow-sm transition-transform group-hover:scale-110">
                         <img
                           src={urlFor(feature.icon).url()}
                           alt=""
-                          className="h-6 w-6 text-primary"
+                          className="h-7 w-7 text-blue-600 dark:text-blue-400 dark:invert"
                         />
                       </div>
                     )}
@@ -165,8 +165,8 @@ export default async function HomePage() {
                 return (
                   <Card key={offering.title} className="text-center">
                     <CardHeader>
-                      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                        <Icon className="h-6 w-6 text-primary" />
+                      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-blue-50 border border-blue-100 dark:bg-blue-500/10 dark:border-blue-500/20 shadow-sm transition-transform group-hover:scale-110">
+                        <Icon className="h-7 w-7 text-blue-600 dark:text-blue-400" />
                       </div>
                       <CardTitle className="mt-4 font-serif text-xl">{offering.title}</CardTitle>
                     </CardHeader>

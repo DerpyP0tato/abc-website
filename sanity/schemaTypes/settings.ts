@@ -29,5 +29,12 @@ export const settings = defineType({
             type: "string",
             validation: (rule) => rule.email(),
         }),
+        defineField({
+            name: "enableDarkMode",
+            title: "Enable Dark Mode",
+            type: "boolean",
+            description: "If disabled, the site will be forced to Light Mode and the toggle will be hidden.",
+            initialValue: true,
+        }),
     ],
 })

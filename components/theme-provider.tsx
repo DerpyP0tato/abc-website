@@ -6,6 +6,19 @@ import {
   type ThemeProviderProps,
 } from 'next-themes'
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+export function ThemeProvider({
+  children,
+  enableDarkMode = true,
+  ...props
+}: ThemeProviderProps & { enableDarkMode?: boolean }) {
+  const forcedTheme = enableDarkMode ? undefined : "light"
+
+  return (
+    <NextThemesProvider
+      {...props}
+      forcedTheme={forcedTheme}
+    >
+      {children}
+    </NextThemesProvider>
+  )
 }

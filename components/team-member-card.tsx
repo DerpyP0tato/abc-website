@@ -13,7 +13,7 @@ export function TeamMemberCard({ member }: TeamMemberCardProps) {
 
   return (
     <Link href={`/team/${member.slug?.current || member._id}`} className="block">
-      <Card className="group border-0 bg-white py-0 gap-0 shadow-lg transition-all hover:shadow-xl">
+      <Card className="group border border-border/50 bg-card py-0 gap-0 shadow-lg transition-all hover:border-primary/50 hover:shadow-xl dark:border-border dark:bg-white/5">
         <div className="p-4 pb-0">
           <div className="relative aspect-square overflow-hidden rounded-xl">
             <Image

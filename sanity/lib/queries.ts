@@ -125,7 +125,8 @@ export const SETTINGS_QUERY = groq`
     joinLink,
     instagram,
     linkedin,
-    email
+    email,
+    enableDarkMode
   }
 `
 

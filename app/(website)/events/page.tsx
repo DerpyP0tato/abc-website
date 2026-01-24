@@ -33,7 +33,7 @@ export default async function EventsPage() {
     <div className="flex flex-col">
       <section className="pt-8 pb-14 w-full md:pt-12">
         <div className="mx-auto max-w-4xl px-8 text-center sm:px-6 lg:px-8">
-          <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl">Events</h1>
+          <h1 className="font-serif text-5xl font-bold tracking-tight sm:text-6xl">Events</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Join us for workshops, networking events, case competitions, and more.
           </p>
@@ -43,7 +43,7 @@ export default async function EventsPage() {
       <section className="py-6 sm:py-10">
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           <div className="mb-12 text-center md:text-left">
-            <h2 className="font-serif text-3xl font-semibold">Upcoming Events</h2>
+            <h2 className="font-serif text-2xl font-semibold sm:text-3xl">Upcoming Events</h2>
             <p className="mt-2 text-muted-foreground">Don't miss these exciting opportunities</p>
           </div>
 
@@ -69,7 +69,7 @@ export default async function EventsPage() {
         <section className="bg-muted/50 py-16 sm:py-24">
           <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
             <div className="mb-12 text-center md:text-left">
-              <h2 className="font-serif text-3xl font-semibold">Past Events</h2>
+              <h2 className="font-serif text-2xl font-semibold sm:text-3xl">Past Events</h2>
               <p className="mt-2 text-muted-foreground">Take a look at what we've accomplished</p>
             </div>
 

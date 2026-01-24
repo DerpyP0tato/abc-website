@@ -22,7 +22,7 @@ export default async function LinksPage() {
     // or just handle empty state carefully.
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white px-4 pt-8 pb-12 md:pt-12 flex flex-col items-center">
+        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-slate-950 dark:to-background px-4 pt-8 pb-12 md:pt-12 flex flex-col items-center">
             {/* Profile Section */}
             <div className="mb-8 flex flex-col items-center text-center">
                 {data?.profileImage ? (
@@ -34,14 +34,14 @@ export default async function LinksPage() {
                         className="h-24 w-24 rounded-full object-cover shadow-md"
                     />
                 ) : (
-                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-slate-200">
-                        <span className="text-2xl font-bold text-slate-500">ABC</span>
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-muted">
+                        <span className="text-2xl font-bold text-muted-foreground">ABC</span>
                     </div>
                 )}
 
-                <h1 className="mt-4 font-serif text-2xl font-bold tracking-tight text-slate-900">{title}</h1>
+                <h1 className="mt-4 font-serif text-2xl font-bold tracking-tight text-foreground">{title}</h1>
                 {data?.description && (
-                    <p className="mt-2 max-w-sm text-center text-sm text-slate-600">{data.description}</p>
+                    <p className="mt-2 max-w-sm text-center text-sm text-muted-foreground">{data.description}</p>
                 )}
 
                 {/* Social Icons */}
@@ -51,7 +51,7 @@ export default async function LinksPage() {
                             href={settings.instagram}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-slate-600 hover:text-slate-900 transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
                             aria-label="Instagram"
                         >
                             <Instagram className="h-6 w-6" />
@@ -62,7 +62,7 @@ export default async function LinksPage() {
                             href={settings.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-slate-600 hover:text-slate-900 transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
                             aria-label="LinkedIn"
                         >
                             <Linkedin className="h-6 w-6" />
@@ -71,7 +71,7 @@ export default async function LinksPage() {
                     {settings?.email && (
                         <a
                             href={`mailto:${settings.email}`}
-                            className="text-slate-600 hover:text-slate-900 transition-colors"
+                            className="text-muted-foreground hover:text-foreground transition-colors"
                             aria-label="Email"
                         >
                             <Mail className="h-6 w-6" />
@@ -85,7 +85,7 @@ export default async function LinksPage() {
                 {data?.sections?.map((section: any, idx: number) => (
                     <div key={idx} className="space-y-4">
                         {section.sectionTitle && (
-                            <h2 className="text-center text-lg font-semibold text-slate-700">{section.sectionTitle}</h2>
+                            <h2 className="text-center text-lg font-bold text-foreground">{section.sectionTitle}</h2>
                         )}
 
                         <div className="space-y-3">
@@ -95,9 +95,9 @@ export default async function LinksPage() {
                                     href={link.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="group flex w-full items-center rounded-xl border border-slate-200 bg-white p-1 pr-4 transition-all hover:scale-[1.02] hover:border-slate-300 hover:shadow-md"
+                                    className="group flex w-full items-center rounded-xl border border-border bg-card p-1 pr-4 transition-all hover:scale-[1.02] hover:border-primary/50 hover:shadow-md"
                                 >
-                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-slate-50">
+                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-muted">
                                         {link.image ? (
                                             <Image
                                                 src={urlFor(link.image).width(64).height(64).url()}
@@ -107,10 +107,10 @@ export default async function LinksPage() {
                                                 className="h-8 w-8 object-contain"
                                             />
                                         ) : (
-                                            <LinkIcon className="h-5 w-5 text-slate-400" />
+                                            <LinkIcon className="h-5 w-5 text-muted-foreground" />
                                         )}
                                     </div>
-                                    <span className="flex-1 text-center font-medium text-slate-700">{link.title}</span>
+                                    <span className="flex-1 text-center font-medium text-foreground">{link.title}</span>
                                     {/* Placeholder for balancing visually, or an icon like standard linktree */}
                                     <div className="w-10" />
                                 </a>
@@ -122,7 +122,7 @@ export default async function LinksPage() {
                 {/* Upcoming Events Section */}
                 {events?.length > 0 && (
                     <div className="space-y-4">
-                        <h2 className="text-center text-lg font-semibold text-slate-700">Upcoming Events</h2>
+                        <h2 className="text-center text-lg font-bold text-foreground">Upcoming Events</h2>
                         <div className="space-y-3">
                             {events.map((event: any) => {
                                 const startDate = new Date(event.startDateTime)
@@ -134,13 +134,13 @@ export default async function LinksPage() {
                                     <Link
                                         key={event._id}
                                         href={`/events/${event.slug.current}`}
-                                        className="group flex w-full items-center rounded-xl border border-slate-200 bg-white p-1 pr-4 transition-all hover:scale-[1.02] hover:border-slate-300 hover:shadow-md"
+                                        className="group flex w-full items-center rounded-xl border border-border bg-card p-1 pr-4 transition-all hover:scale-[1.02] hover:border-primary/50 hover:shadow-md"
                                     >
-                                        <div className="flex h-12 w-16 shrink-0 flex-col items-center justify-center rounded-lg bg-slate-50 text-xs font-medium text-slate-500">
+                                        <div className="flex h-12 w-16 shrink-0 flex-col items-center justify-center rounded-lg bg-muted text-xs font-medium text-muted-foreground">
                                             <span>{dateStr.split(" ")[0]}</span>
-                                            <span className="text-slate-900 font-bold text-sm">{dateStr.split(" ")[1]}</span>
+                                            <span className="text-foreground font-bold text-sm">{dateStr.split(" ")[1]}</span>
                                         </div>
-                                        <span className="flex-1 text-center font-medium text-slate-700">{event.title}</span>
+                                        <span className="flex-1 text-center font-medium text-foreground">{event.title}</span>
                                         <div className="w-16" />
                                     </Link>
                                 )
@@ -162,7 +162,7 @@ export default async function LinksPage() {
                     Asian Business Collective
                 </Link>
             </div>
-        </div>
+        </div >
     )
 }
 

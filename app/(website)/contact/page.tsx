@@ -13,7 +13,7 @@ export default async function ContactPage() {
     <div className="flex flex-col">
       <section className="pt-8 pb-14 w-full md:pt-12">
         <div className="mx-auto max-w-4xl px-8 text-center sm:px-6 lg:px-8">
-          <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl">Get in Touch</h1>
+          <h1 className="font-serif text-5xl font-bold tracking-tight sm:text-6xl">Get in Touch</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Have questions? Want to get involved? We'd love to hear from you.
           </p>

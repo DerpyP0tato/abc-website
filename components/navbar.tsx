@@ -6,6 +6,7 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
+import { ModeToggle } from "@/components/mode-toggle"
 
 const navItems = [
   { name: "About", href: "/about" },
@@ -14,7 +15,7 @@ const navItems = [
   { name: "Contact", href: "/contact" },
 ]
 
-export function Navbar() {
+export function Navbar({ enableDarkMode = true }: { enableDarkMode?: boolean }) {
   const pathname = usePathname()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -31,7 +32,7 @@ export function Navbar() {
               height={50}
               className="h-12 w-12 transition-transform group-hover:scale-105"
             />
-            <span className="font-serif font-bold tracking-tight text-xl sm:text-2xl text-foreground leading-tight max-w-[200px] sm:max-w-none">Asian Business Collective</span>
+            <span className="hidden sm:inline font-serif font-bold tracking-tight text-xl sm:text-2xl text-foreground leading-tight">Asian Business Collective</span>
           </Link>
 
           {/* Desktop Navigation on the right */}
@@ -46,12 +47,16 @@ export function Navbar() {
                 {item.name}
               </Link>
             ))}
+            {enableDarkMode && <ModeToggle />}
           </div>
 
           {/* Mobile menu button */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
+          <div className="flex items-center gap-4 md:hidden">
+            {enableDarkMode && <ModeToggle />}
+            <Button variant="ghost" size="icon" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
         </div>
       </div>
 

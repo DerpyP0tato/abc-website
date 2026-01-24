@@ -53,7 +53,7 @@ export default async function TeamPage() {
     <div className="flex flex-col">
       <section className="pt-8 pb-14 w-full md:pt-12">
         <div className="mx-auto max-w-4xl px-8 text-center sm:px-6 lg:px-8">
-          <h1 className="font-serif text-4xl font-bold tracking-tight sm:text-5xl">Our Leadership Team</h1>
+          <h1 className="font-serif text-5xl font-bold tracking-tight sm:text-6xl">Our Leadership Team</h1>
           <p className="mt-6 text-lg leading-relaxed text-muted-foreground">
             Meet the dedicated students leading the Asian Business Collective and driving our mission forward.
           </p>
@@ -89,7 +89,7 @@ export default async function TeamPage() {
         <section className="py-16 sm:py-24 border-t border-slate-100">
           <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
             <div className="mb-12">
-              <h2 className="font-serif text-3xl font-bold uppercase tracking-wide text-slate-800">
+              <h2 className="font-serif text-2xl font-bold uppercase tracking-wide text-slate-800 sm:text-3xl">
                 Past Executive Boards
               </h2>
             </div>
