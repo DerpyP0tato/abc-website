@@ -18,11 +18,13 @@ export function ContactForm() {
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
+    const [errorMessage, setErrorMessage] = useState<string>("")
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsSubmitting(true)
         setSubmitStatus("idle")
+        setErrorMessage("")
 
         try {
             const response = await fetch("/api/contact", {
@@ -48,10 +50,12 @@ export function ContactForm() {
             } else {
                 console.error("API error:", result.message)
                 setSubmitStatus("error")
+                setErrorMessage(result.message || "Something went wrong. Please try again.")
             }
         } catch (error) {
             console.error("Submission error:", error)
             setSubmitStatus("error")
+            setErrorMessage("An unexpected error occurred. Please try again later.")
         } finally {
             setIsSubmitting(false)
         }
@@ -123,7 +127,7 @@ export function ContactForm() {
 
                     {submitStatus === "error" && (
                         <div className="rounded-md bg-red-50 p-4 text-sm text-red-800 dark:bg-red-950 dark:text-red-200">
-                            Something went wrong. Please try again.
+                            {errorMessage}
                         </div>
                     )}
 
