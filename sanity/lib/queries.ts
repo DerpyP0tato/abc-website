@@ -172,7 +172,7 @@ export const ABOUT_PAGE_QUERY = groq`
     whoContent,
     foundingYear,
     foundingTitle,
-    foundingParagraphs,
+    foundingContent,
     foundingImage,
     offeringsTitle,
     offeringsDescription,

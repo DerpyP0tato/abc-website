@@ -31,7 +31,8 @@ export const aboutPage = defineType({
         defineField({
             name: 'missionContent',
             title: 'Mission Content',
-            type: 'text',
+            type: 'array',
+            of: [{ type: 'block' }],
         }),
         defineField({
             name: 'whyTitle',
@@ -41,7 +42,8 @@ export const aboutPage = defineType({
         defineField({
             name: 'whyContent',
             title: 'Why ABC Content',
-            type: 'text',
+            type: 'array',
+            of: [{ type: 'block' }],
         }),
         defineField({
             name: 'whoTitle',
@@ -51,7 +53,8 @@ export const aboutPage = defineType({
         defineField({
             name: 'whoContent',
             title: 'Who We\'re For Content',
-            type: 'text',
+            type: 'array',
+            of: [{ type: 'block' }],
         }),
         defineField({
             name: 'foundingYear',
@@ -65,10 +68,10 @@ export const aboutPage = defineType({
             type: 'string',
         }),
         defineField({
-            name: 'foundingParagraphs',
-            title: 'Founding Story Paragraphs',
+            name: 'foundingContent',
+            title: 'Founding Story Content',
             type: 'array',
-            of: [{ type: 'text' }],
+            of: [{ type: 'block' }],
         }),
         defineField({
             name: 'foundingImage',

@@ -8,10 +8,15 @@ import { urlFor } from "@/sanity/lib/image"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import type { AboutPageData } from "@/sanity/lib/types"
 
+import { PortableTextRenderer } from "@/components/portable-text"
+
 export const metadata = {
     title: "About | Asian Business Collective",
     description: "Learn about the Asian Business Collective and our mission at Binghamton University.",
 }
+
+// Helper to convert string to Portable Text block
+const toBlock = (text: string) => [{ _type: 'block', children: [{ _type: 'span', text }] }]
 
 export const revalidate = 60
 
@@ -31,17 +36,17 @@ const defaults = {
     heroTitle: "Empowering the Next Generation",
     heroDescription: "The Asian Business Collective at Binghamton University is dedicated to bridging the gap between ambition and achievement for students in business and technology.",
     missionTitle: "Our Mission",
-    missionContent: "We exist to separate potential from opportunity. By fostering a supportive community and providing hands-on professional development, we prepare students to confidently enter and excel in competitive industries. We believe representation matters, and we strive to elevate Asian voices in business leadership.",
+    missionContent: toBlock("We exist to separate potential from opportunity. By fostering a supportive community and providing hands-on professional development, we prepare students to confidently enter and excel in competitive industries. We believe representation matters, and we strive to elevate Asian voices in business leadership."),
     whyTitle: "Why ABC?",
-    whyContent: "Many students feel disconnected from the professional world and uncertain about how to build meaningful careers. ABC fills this gap by creating a space where students can learn from real experiences, connect with active mentors, and develop practical skills that employers actually value.",
+    whyContent: toBlock("Many students feel disconnected from the professional world and uncertain about how to build meaningful careers. ABC fills this gap by creating a space where students can learn from real experiences, connect with active mentors, and develop practical skills that employers actually value."),
     whoTitle: "Who We're For",
-    whoContent: "We welcome all students at Binghamton University who are curious, driven, and ready to grow. Whether you're a freshman exploring options or a senior refining your pitch, there is a place for you here.",
+    whoContent: toBlock("We welcome all students at Binghamton University who are curious, driven, and ready to grow. Whether you're a freshman exploring options or a senior refining your pitch, there is a place for you here."),
     foundingYear: "Est. 2025",
     foundingTitle: "Founding Story",
-    foundingParagraphs: [
-        "The Asian Business Collective wasn't born in a boardroom. It began in 2025 over a hotpot dinner with Maxwell Chan (SOM '28), Genesis Li (SOM '28), and Ellie Park (SOM '28)—a group of friends sharing a meal and a common realization: there was a significant gap in active Asian representation within the business world.",
-        "We saw talented peers being boxed in by the \"model minority\" myth—expected to be quiet workers rather than vocal leaders. We knew we had to change that narrative.",
-        "What started as a conversation over dinner has grown into a movement to empower the next generation of leaders to break ceilings, speak up, and take their place at the table.",
+    foundingContent: [
+        ...toBlock("The Asian Business Collective wasn't born in a boardroom. It began in 2025 over a hotpot dinner with Maxwell Chan (SOM '28), Genesis Li (SOM '28), and Ellie Park (SOM '28)—a group of friends sharing a meal and a common realization: there was a significant gap in active Asian representation within the business world."),
+        ...toBlock("We saw talented peers being boxed in by the \"model minority\" myth—expected to be quiet workers rather than vocal leaders. We knew we had to change that narrative."),
+        ...toBlock("What started as a conversation over dinner has grown into a movement to empower the next generation of leaders to break ceilings, speak up, and take their place at the table.")
     ],
     offeringsTitle: "What We Offer",
     offeringsDescription: "A comprehensive suite of resources designed to accelerate your professional journey.",
@@ -69,14 +74,14 @@ export default async function AboutPage() {
         heroTitle: aboutData?.heroTitle || defaults.heroTitle,
         heroDescription: aboutData?.heroDescription || defaults.heroDescription,
         missionTitle: aboutData?.missionTitle || defaults.missionTitle,
-        missionContent: aboutData?.missionContent || defaults.missionContent,
+        missionContent: Array.isArray(aboutData?.missionContent) ? aboutData.missionContent : defaults.missionContent,
         whyTitle: aboutData?.whyTitle || defaults.whyTitle,
-        whyContent: aboutData?.whyContent || defaults.whyContent,
+        whyContent: Array.isArray(aboutData?.whyContent) ? aboutData.whyContent : defaults.whyContent,
         whoTitle: aboutData?.whoTitle || defaults.whoTitle,
-        whoContent: aboutData?.whoContent || defaults.whoContent,
+        whoContent: Array.isArray(aboutData?.whoContent) ? aboutData.whoContent : defaults.whoContent,
         foundingYear: aboutData?.foundingYear || defaults.foundingYear,
         foundingTitle: aboutData?.foundingTitle || defaults.foundingTitle,
-        foundingParagraphs: aboutData?.foundingParagraphs || defaults.foundingParagraphs,
+        foundingContent: Array.isArray(aboutData?.foundingContent) ? aboutData.foundingContent : defaults.foundingContent,
         foundingImage: aboutData?.foundingImage,
         offeringsTitle: aboutData?.offeringsTitle || defaults.offeringsTitle,
         offeringsDescription: aboutData?.offeringsDescription || defaults.offeringsDescription,
@@ -123,22 +128,22 @@ export default async function AboutPage() {
                     <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-stretch mb-24">
                         <div className="bg-card rounded-3xl p-8 sm:p-12 border shadow-sm flex flex-col justify-center">
                             <h2 className="font-serif text-2xl font-bold text-foreground mb-4 sm:text-3xl">{content.missionTitle}</h2>
-                            <p className="text-lg leading-relaxed text-muted-foreground">
-                                {content.missionContent}
-                            </p>
+                            <div className="text-lg leading-relaxed text-muted-foreground">
+                                <PortableTextRenderer value={content.missionContent} />
+                            </div>
                         </div>
                         <div className="space-y-8">
                             <div>
                                 <h2 className="font-serif text-2xl font-bold text-foreground mb-4 sm:text-3xl">{content.whyTitle}</h2>
-                                <p className="text-lg leading-relaxed text-muted-foreground">
-                                    {content.whyContent}
-                                </p>
+                                <div className="text-lg leading-relaxed text-muted-foreground">
+                                    <PortableTextRenderer value={content.whyContent} />
+                                </div>
                             </div>
                             <div>
                                 <h2 className="font-serif text-2xl font-bold text-foreground mb-4 sm:text-3xl">{content.whoTitle}</h2>
-                                <p className="text-lg leading-relaxed text-muted-foreground">
-                                    {content.whoContent}
-                                </p>
+                                <div className="text-lg leading-relaxed text-muted-foreground">
+                                    <PortableTextRenderer value={content.whoContent} />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -154,9 +159,7 @@ export default async function AboutPage() {
                                 </span>
                                 <h2 className="font-serif text-2xl font-bold text-foreground mb-6 sm:text-3xl">{content.foundingTitle}</h2>
                                 <div className="space-y-4 text-lg text-muted-foreground leading-relaxed">
-                                    {content.foundingParagraphs.map((paragraph, index) => (
-                                        <p key={index}>{paragraph}</p>
-                                    ))}
+                                    <PortableTextRenderer value={content.foundingContent} />
                                 </div>
                             </div>
 

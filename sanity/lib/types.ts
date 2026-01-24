@@ -71,14 +71,14 @@ export type AboutPageData = {
   heroTitle?: string
   heroDescription?: string
   missionTitle?: string
-  missionContent?: string
+  missionContent?: PortableTextBlock[]
   whyTitle?: string
-  whyContent?: string
+  whyContent?: PortableTextBlock[]
   whoTitle?: string
-  whoContent?: string
+  whoContent?: PortableTextBlock[]
   foundingYear?: string
   foundingTitle?: string
-  foundingParagraphs?: string[]
+  foundingContent?: PortableTextBlock[]
   foundingImage?: {
     asset: {
       _ref: string
