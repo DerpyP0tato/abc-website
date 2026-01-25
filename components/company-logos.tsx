@@ -121,9 +121,10 @@ export function CompanyLogos({ title, description, companies }: CompanyLogosProp
                             >
                                 <div className="relative h-[65%] w-[65%]">
                                     <Image
-                                        src={urlFor(company).url()}
+                                        src={urlFor(company).width(200).url()}
                                         alt={company.alt || "Company logo"}
                                         fill
+                                        sizes="100px"
                                         className="object-contain opacity-90"
                                     />
                                 </div>
