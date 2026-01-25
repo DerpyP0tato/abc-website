@@ -5,21 +5,22 @@ import { groq } from 'next-sanity'
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://abc-website.vercel.app'
 
-    // Fetch all events
-    const events = await client.fetch<Array<{ slug: string; _updatedAt: string }>>(
-        groq`*[_type == "event" && defined(slug.current)] {
+    const [events, teamMembers] = await Promise.all([
+        // Fetch all events
+        client.fetch<Array<{ slug: string; _updatedAt: string }>>(
+            groq`*[_type == "event" && defined(slug.current)] {
       "slug": slug.current,
       _updatedAt
     }`
-    )
-
-    // Fetch all team members
-    const teamMembers = await client.fetch<Array<{ slug: string; _updatedAt: string }>>(
-        groq`*[_type == "teamMember" && defined(slug.current)] {
+        ),
+        // Fetch all team members
+        client.fetch<Array<{ slug: string; _updatedAt: string }>>(
+            groq`*[_type == "teamMember" && defined(slug.current)] {
       "slug": slug.current,
       _updatedAt
     }`
-    )
+        ),
+    ])
 
     // Static pages
     const staticPages: MetadataRoute.Sitemap = [
