@@ -7,6 +7,10 @@ const rateLimitMap = new Map<string, { count: number; resetTime: number }>()
 const RATE_LIMIT_WINDOW = 60 * 1000 // 1 minute
 const MAX_REQUESTS = 3 // 3 requests per minute
 
+// Cleanup mechanism to prevent memory leaks
+const CLEANUP_INTERVAL = 5 * 60 * 1000 // 5 minutes
+let lastCleanup = Date.now()
+
 function getRateLimitKey(request: NextRequest): string {
     // Use X-Forwarded-For header or IP address for rate limiting
     const forwarded = request.headers.get('x-forwarded-for')
@@ -16,6 +20,17 @@ function getRateLimitKey(request: NextRequest): string {
 
 function checkRateLimit(key: string): boolean {
     const now = Date.now()
+
+    // Periodic cleanup of expired keys
+    if (now - lastCleanup > CLEANUP_INTERVAL) {
+        for (const [k, data] of rateLimitMap.entries()) {
+            if (now > data.resetTime) {
+                rateLimitMap.delete(k)
+            }
+        }
+        lastCleanup = now
+    }
+
     const rateLimitData = rateLimitMap.get(key)
 
     if (!rateLimitData || now > rateLimitData.resetTime) {
