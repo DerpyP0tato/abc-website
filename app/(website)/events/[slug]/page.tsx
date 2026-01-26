@@ -2,6 +2,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import Image from "next/image"
 import { Calendar, MapPin, ArrowLeft, ExternalLink, CalendarPlus, Clock } from "lucide-react"
+import { EventDateTime } from "@/components/event-date-time"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
@@ -108,21 +109,11 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
                 {/* Date & Location Row (Desktop) */}
                 <div className="mt-8 flex flex-col sm:flex-row gap-6 text-base text-muted-foreground border-y py-6">
-                  <div className="flex items-start gap-3">
-                    <div className="p-2 rounded-lg bg-primary/5 text-primary">
-                      <Calendar className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-foreground">
-                        {startDate.toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" })}
-                      </p>
-                      <p className="text-sm">
-                        {startDate.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}
-                        {!event.allDay && endDate && ` - ${endDate.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" })}`}
-                        {event.allDay && " (All Day)"}
-                      </p>
-                    </div>
-                  </div>
+                  <EventDateTime
+                    startDateTime={event.startDateTime}
+                    endDateTime={event.endDateTime}
+                    allDay={event.allDay}
+                  />
 
                   <div className="hidden sm:block w-px bg-border h-auto mx-2" />
 
@@ -171,9 +162,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
 
                   {formattedSignupUrl ? (
                     <div className="space-y-4">
-                      <p className="text-muted-foreground">
-                        Ready to learn more about strategy? Reserve your spot now.
-                      </p>
+
                       <Button asChild size="lg" className="w-full text-lg h-12">
                         <a href={formattedSignupUrl} target="_blank" rel="noopener noreferrer">
                           {event.signupButtonText || "Register Now"}
