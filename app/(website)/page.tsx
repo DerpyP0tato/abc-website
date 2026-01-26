@@ -133,7 +133,11 @@ export default async function HomePage() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="h-10 px-6 text-base">
-                <Link href="/contact">
+                <Link
+                  href={settings?.joinLink || "/contact"}
+                  target={settings?.joinLink ? "_blank" : undefined}
+                  rel={settings?.joinLink ? "noopener noreferrer" : undefined}
+                >
                   Join ABC
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
@@ -231,11 +235,11 @@ export default async function HomePage() {
       <div className="relative overflow-hidden">
         {/* Shared Background Blobs */}
         <div
-          className="absolute right-0 top-1/4 h-[600px] w-[600px] rounded-full bg-blue-500/5 blur-[140px]"
+          className="absolute right-0 top-1/4 h-[600px] w-[600px] rounded-full bg-blue-500/5 blur-[140px] pointer-events-none"
           aria-hidden="true"
         />
         <div
-          className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[130px]"
+          className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[130px] pointer-events-none"
           aria-hidden="true"
         />
 
@@ -285,7 +289,7 @@ export default async function HomePage() {
         {/* {featuredEvent && ...} */}
 
         {/* Ready to Get Started */}
-        <section className="pt-12 pb-24 sm:pt-16 sm:pb-24">
+        <section className="pt-12 pb-24 sm:pt-16 sm:pb-24 relative z-10">
           <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
             <h2 className="font-serif text-3xl font-semibold sm:text-4xl">Ready to Get Started?</h2>
             <p className="mt-4 text-muted-foreground">
@@ -293,7 +297,13 @@ export default async function HomePage() {
             </p>
             <div className="mt-8 flex justify-center gap-4">
               <Button asChild size="lg">
-                <Link href="/contact">Join ABC</Link>
+                <Link
+                  href={settings?.joinLink || "/contact"}
+                  target={settings?.joinLink ? "_blank" : undefined}
+                  rel={settings?.joinLink ? "noopener noreferrer" : undefined}
+                >
+                  Join ABC
+                </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link href="/team">Meet the Team</Link>
