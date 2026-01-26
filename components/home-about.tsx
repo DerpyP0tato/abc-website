@@ -11,7 +11,7 @@ export function BentoGrid() {
                     {/* Large Main Block */}
                     <div className="relative flex flex-col justify-center rounded-[2rem] bg-gradient-to-br from-slate-50 to-slate-100 p-8 lg:col-span-2 lg:p-12 border overflow-hidden group">
                         {/* Decorative Background Element */}
-                        <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl transition-transform group-hover:scale-110" />
+                        <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-500/5 blur-3xl transition-transform group-hover:scale-110 pointer-events-none" />
 
                         <div className="relative z-10">
                             <div className="flex items-center gap-2 mb-6">
@@ -55,7 +55,7 @@ export function BentoGrid() {
                     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
                         {/* Professional Growth Card */}
                         <div className="group relative overflow-hidden rounded-[2rem] bg-white p-8 border border-slate-200 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
-                            <div className="absolute top-0 right-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-blue-50 transition-transform group-hover:scale-150" />
+                            <div className="absolute top-0 right-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-blue-50 transition-transform group-hover:scale-150 pointer-events-none" />
                             <div className="relative z-10">
                                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                                     <LineChart className="h-6 w-6" />
@@ -69,7 +69,7 @@ export function BentoGrid() {
 
                         {/* Community Card */}
                         <div className="group relative overflow-hidden rounded-[2rem] bg-slate-900 p-8 text-white shadow-md transition-all hover:-translate-y-1 hover:shadow-xl">
-                            <div className="absolute top-0 right-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-white/10 transition-transform group-hover:scale-150" />
+                            <div className="absolute top-0 right-0 -mr-8 -mt-8 h-32 w-32 rounded-full bg-white/10 transition-transform group-hover:scale-150 pointer-events-none" />
                             <div className="relative z-10">
                                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-white/10 text-white group-hover:bg-white group-hover:text-slate-900 transition-colors">
                                     <Users className="h-6 w-6" />
