@@ -63,9 +63,15 @@ export default async function TeamPage() {
       <section className="py-6 sm:py-10">
         <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
           {members.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="flex flex-wrap justify-center gap-6">
+              {/* Flex-wrap instead of grid so a partial last row stays centered */}
               {members.map((member) => (
-                <TeamMemberCard key={member._id} member={member} />
+                <div
+                  key={member._id}
+                  className="w-full sm:w-[calc((100%-1.5rem)/2)] md:w-[calc((100%-3rem)/3)] lg:w-[calc((100%-4.5rem)/4)] xl:w-[calc((100%-6rem)/5)]"
+                >
+                  <TeamMemberCard member={member} />
+                </div>
               ))}
             </div>
           ) : (
@@ -86,10 +92,10 @@ export default async function TeamPage() {
 
       {/* Legacy / Past Boards Section - After placements */}
       {pastBoards && pastBoards.length > 0 && (
-        <section className="py-16 sm:py-24 border-t border-slate-100">
+        <section className="py-16 sm:py-24 border-t border-border/60">
           <div className="mx-auto max-w-5xl px-8 sm:px-6 lg:px-8">
             <div className="mb-12">
-              <h2 className="font-serif text-2xl font-bold uppercase tracking-wide text-slate-800 sm:text-3xl">
+              <h2 className="font-serif text-2xl font-bold uppercase tracking-wide text-slate-800 dark:text-foreground sm:text-3xl">
                 Past Executive Boards
               </h2>
             </div>

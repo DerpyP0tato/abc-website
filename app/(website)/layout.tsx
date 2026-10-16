@@ -101,7 +101,7 @@ export default async function WebsiteLayout({
       disableTransitionOnChange
       enableDarkMode={enableDarkMode}
     >
-      <div className={`${_geist.className} font-sans antialiased min-h-screen w-full flex flex-col overflow-x-hidden text-foreground`}>
+      <div className={`${_geist.className} font-sans antialiased min-h-screen w-full flex flex-col overflow-x-hidden supports-[overflow:clip]:overflow-x-clip text-foreground`}>
         <Preloader>
           <ScrollToTop />
           <BackgroundBlobs />

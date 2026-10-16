@@ -13,7 +13,7 @@ import { CompanyLogos } from "@/components/company-logos"
 import { BentoGrid } from "@/components/home-about"
 import type { Event, GalleryAlbum } from "@/sanity/lib/types"
 import { FeatureCard } from "@/components/feature-card"
-import { PhotoGallery } from "@/components/photo-gallery"
+import { PhotoCarousel } from "@/components/photo-carousel"
 
 export const revalidate = 60
 
@@ -28,7 +28,7 @@ export default async function HomePage() {
   // Latest photos across the most recent albums
   const galleryPhotos = galleryAlbums
     .flatMap((album) => album.photos.map((photo) => ({ ...photo, albumTitle: album.title })))
-    .slice(0, 8)
+    .slice(0, 12)
 
   // Default offerings fallback
   const defaultOfferings = [
@@ -141,7 +141,7 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="h-10 px-6 text-base">
                 <Link
-                  href={settings?.joinLink || "/contact"}
+                  href={settings?.joinLink || "/links"}
                   target={settings?.joinLink ? "_blank" : undefined}
                   rel={settings?.joinLink ? "noopener noreferrer" : undefined}
                 >
@@ -184,13 +184,13 @@ export default async function HomePage() {
 
             {/* Visual Stats / Values Grid - 1 col on lg (stacked) */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-3xl bg-blue-50/50 border border-blue-100 p-8 shadow-sm dark:bg-blue-500/10 dark:border-blue-500/20 transition-colors hover:shadow-md">
-                <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <div className="rounded-3xl bg-brand-soft/60 border border-brand-muted p-8 shadow-sm dark:bg-brand-soft transition-colors hover:shadow-md">
+                <Briefcase className="h-8 w-8 text-brand" />
                 <h3 className="mt-4 font-serif text-xl font-semibold">Growth</h3>
                 <p className="mt-2 text-muted-foreground">Professional workshops & skill-building.</p>
               </div>
-              <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-8 shadow-sm dark:bg-indigo-500/10 dark:border-indigo-500/20 transition-colors hover:shadow-md">
-                <Users className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+              <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-8 shadow-sm dark:bg-brand-soft dark:border-brand-muted transition-colors hover:shadow-md">
+                <Users className="h-8 w-8 text-indigo-600 dark:text-brand" />
                 <h3 className="mt-4 font-serif text-xl font-semibold">Community</h3>
                 <p className="mt-2 text-muted-foreground">A network of ambitious peers & alumni.</p>
               </div>
@@ -230,7 +230,7 @@ export default async function HomePage() {
                     key={offering.title}
                     title={offering.title}
                     description={offering.description}
-                    icon={<Icon className="h-7 w-7 text-blue-600 dark:text-blue-400" />}
+                    icon={<Icon className="h-7 w-7 text-brand" />}
                     isSanityIcon={false}
                   />
                 )
@@ -246,7 +246,7 @@ export default async function HomePage() {
           aria-hidden="true"
         />
         <div
-          className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[130px] pointer-events-none"
+          className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/5 dark:bg-sky-500/5 blur-[130px] pointer-events-none"
           aria-hidden="true"
         />
 
@@ -312,7 +312,7 @@ export default async function HomePage() {
                   </Link>
                 </Button>
               </div>
-              <PhotoGallery photos={galleryPhotos} title="ABC Gallery" />
+              <PhotoCarousel photos={galleryPhotos} title="ABC Gallery" />
             </div>
           </section>
         )}
@@ -330,7 +330,7 @@ export default async function HomePage() {
             <div className="mt-8 flex justify-center gap-4">
               <Button asChild size="lg">
                 <Link
-                  href={settings?.joinLink || "/contact"}
+                  href={settings?.joinLink || "/links"}
                   target={settings?.joinLink ? "_blank" : undefined}
                   rel={settings?.joinLink ? "noopener noreferrer" : undefined}
                 >

@@ -11,8 +11,8 @@ export function PastBoardsList({ boards }: PastBoardsListProps) {
     return (
         <div className="space-y-6">
             {boards.map((board) => (
-                <p key={board._id} className="text-slate-700 leading-relaxed">
-                    <span className="font-bold text-slate-900">{board.year}:</span>{" "}
+                <p key={board._id} className="text-slate-700 dark:text-muted-foreground leading-relaxed">
+                    <span className="font-bold text-slate-900 dark:text-foreground">{board.year}:</span>{" "}
                     {board.members?.map((member, index) => (
                         <span key={index}>
                             {member.linkedinUrl ? (
@@ -20,7 +20,7 @@ export function PastBoardsList({ boards }: PastBoardsListProps) {
                                     href={member.linkedinUrl}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+                                    className="text-brand hover:text-brand-strong hover:underline transition-colors"
                                 >
                                     {member.name}
                                 </Link>

@@ -1,6 +1,5 @@
-import Link from "next/link"
 import { Images } from "lucide-react"
-import { PhotoGallery } from "@/components/photo-gallery"
+import { GalleryAlbumSection, albumAnchor } from "@/components/gallery-album-section"
 import { client } from "@/sanity/lib/client"
 import { GALLERY_ALBUMS_QUERY } from "@/sanity/lib/queries"
 import type { GalleryAlbum } from "@/sanity/lib/types"
@@ -36,33 +35,28 @@ export default async function GalleryPage() {
         </div>
       </section>
 
+      {albums.length > 1 && (
+        <nav aria-label="Albums" className="mx-auto -mt-4 mb-2 w-full max-w-7xl px-8 sm:px-6 lg:px-8">
+          <div className="flex gap-2 overflow-x-auto pb-2 sm:flex-wrap sm:justify-center">
+            {albums.map((album) => (
+              <a
+                key={album._id}
+                href={`#${albumAnchor(album)}`}
+                className="shrink-0 rounded-full border bg-card px-4 py-1.5 text-sm font-medium text-muted-foreground shadow-sm transition-colors hover:border-primary/50 hover:text-foreground"
+              >
+                {album.title}
+              </a>
+            ))}
+          </div>
+        </nav>
+      )}
+
       {albums.length > 0 ? (
-        albums.map((album) => (
-          <section key={album._id} className="py-6 sm:py-10">
-            <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
-              <div className="mb-8 text-center md:text-left">
-                <h2 className="font-serif text-2xl font-semibold sm:text-3xl">{album.title}</h2>
-                <p className="mt-2 text-muted-foreground">
-                  {new Date(`${album.date}T00:00:00`).toLocaleDateString("en-US", {
-                    month: "long",
-                    day: "numeric",
-                    year: "numeric",
-                  })}
-                  {album.event?.slug?.current && (
-                    <>
-                      {" · "}
-                      <Link href={`/events/${album.event.slug.current}`} className="text-primary hover:underline">
-                        View event
-                      </Link>
-                    </>
-                  )}
-                </p>
-                {album.description && <p className="mt-2 text-muted-foreground">{album.description}</p>}
-              </div>
-              <PhotoGallery photos={album.photos} title={album.title} />
-            </div>
-          </section>
-        ))
+        <div className="divide-y divide-border/60">
+          {albums.map((album) => (
+            <GalleryAlbumSection key={album._id} album={album} />
+          ))}
+        </div>
       ) : (
         <section className="py-6 sm:py-10">
           <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">

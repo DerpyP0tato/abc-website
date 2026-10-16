@@ -13,7 +13,6 @@ const navItems = [
   { name: "Team", href: "/team" },
   { name: "Events", href: "/events" },
   { name: "Gallery", href: "/gallery" },
-  { name: "Contact", href: "/contact" },
 ]
 
 export function Navbar({ enableDarkMode = true }: { enableDarkMode?: boolean }) {
@@ -23,7 +22,7 @@ export function Navbar({ enableDarkMode = true }: { enableDarkMode?: boolean }) 
   return (
     <nav className="fixed top-0 w-full z-50 border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 transition-all duration-300">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 md:h-24 items-center justify-between">
+        <div className="flex h-16 md:h-[4.5rem] items-center justify-between">
           {/* Logo on the left */}
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
             <Image
@@ -31,9 +30,9 @@ export function Navbar({ enableDarkMode = true }: { enableDarkMode?: boolean }) 
               alt="ABC Logo"
               width={50}
               height={50}
-              className="h-12 w-12 transition-transform group-hover:scale-105"
+              className="h-10 w-10 transition-transform group-hover:scale-105"
             />
-            <span className="hidden sm:inline font-serif font-bold tracking-tight text-xl sm:text-2xl text-foreground leading-tight">Asian Business Collective</span>
+            <span className="hidden sm:inline font-serif font-bold tracking-tight text-lg sm:text-xl text-foreground leading-tight">Asian Business Collective</span>
           </Link>
 
           {/* Desktop Navigation on the right */}

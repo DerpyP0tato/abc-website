@@ -39,11 +39,6 @@ export async function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-sm text-muted-foreground hover:text-foreground">
-                  Contact
-                </Link>
-              </li>
-              <li>
                 <Link href="/links" className="text-sm text-muted-foreground hover:text-foreground">
                   Link Tree
                 </Link>

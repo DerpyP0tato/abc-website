@@ -71,7 +71,7 @@ export const structure = (S: StructureBuilder) =>
         .child(
           S.documentTypeList("galleryAlbum")
             .title("Gallery Albums")
-            .defaultOrdering([{ field: "date", direction: "desc" }]),
+            .defaultOrdering([{ field: "date", direction: "desc" }, { field: "_createdAt", direction: "desc" }]),
         ),
       S.divider(),
       S.listItem()

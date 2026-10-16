@@ -107,14 +107,14 @@ export type GalleryPhoto = {
   hotspot?: { x: number; y: number; height: number; width: number }
   crop?: { top: number; bottom: number; left: number; right: number }
   dimensions?: { width: number; height: number }
-  lqip?: string
+  color?: string
   albumTitle?: string
 }
 
 export type GalleryAlbum = {
   _id: string
   title: string
-  date: string
+  date?: string
   description?: string
   event?: {
     title: string

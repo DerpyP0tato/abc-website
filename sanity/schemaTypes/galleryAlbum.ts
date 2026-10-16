@@ -18,8 +18,7 @@ export const galleryAlbum = defineType({
       name: "date",
       title: "Date",
       type: "date",
-      validation: (rule) => rule.required(),
-      description: "Used to sort albums (newest first).",
+      description: "Optional. Shown on the album and used to sort albums (newest first). Undated albums are sorted by when they were created.",
     }),
     defineField({
       name: "event",
@@ -84,7 +83,7 @@ export const galleryAlbum = defineType({
       const count = photos?.length || 0
       return {
         title,
-        subtitle: `${date || "No date"} • ${count} photo${count !== 1 ? "s" : ""}${hidden ? " • Hidden" : ""}`,
+        subtitle: [date, `${count} photo${count !== 1 ? "s" : ""}`, hidden && "Hidden"].filter(Boolean).join(" • "),
         media,
       }
     },
