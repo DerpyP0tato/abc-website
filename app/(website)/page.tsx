@@ -6,22 +6,29 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { client } from "@/sanity/lib/client"
-import { HOME_PAGE_QUERY, EVENTS_UPCOMING_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries"
+import { HOME_PAGE_QUERY, EVENTS_UPCOMING_QUERY, SETTINGS_QUERY, GALLERY_RECENT_ALBUMS_QUERY } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import { EventCard } from "@/components/event-card"
 import { CompanyLogos } from "@/components/company-logos"
 import { BentoGrid } from "@/components/home-about"
-import type { Event } from "@/sanity/lib/types"
+import type { Event, GalleryAlbum } from "@/sanity/lib/types"
 import { FeatureCard } from "@/components/feature-card"
+import { PhotoCarousel } from "@/components/photo-carousel"
 
 export const revalidate = 60
 
 export default async function HomePage() {
-  const [homePageData, upcomingEvents, settings] = await Promise.all([
+  const [homePageData, upcomingEvents, settings, galleryAlbums] = await Promise.all([
     client.fetch(HOME_PAGE_QUERY),
     client.fetch<Event[]>(EVENTS_UPCOMING_QUERY),
-    client.fetch(SETTINGS_QUERY).catch(() => null)
+    client.fetch(SETTINGS_QUERY).catch(() => null),
+    client.fetch<GalleryAlbum[]>(GALLERY_RECENT_ALBUMS_QUERY).catch(() => [])
   ])
+
+  // Latest photos across the most recent albums
+  const galleryPhotos = galleryAlbums
+    .flatMap((album) => album.photos.map((photo) => ({ ...photo, albumTitle: album.title })))
+    .slice(0, 12)
 
   // Default offerings fallback
   const defaultOfferings = [
@@ -134,7 +141,7 @@ export default async function HomePage() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="h-10 px-6 text-base">
                 <Link
-                  href={settings?.joinLink || "/contact"}
+                  href={settings?.joinLink || "/links"}
                   target={settings?.joinLink ? "_blank" : undefined}
                   rel={settings?.joinLink ? "noopener noreferrer" : undefined}
                 >
@@ -177,13 +184,13 @@ export default async function HomePage() {
 
             {/* Visual Stats / Values Grid - 1 col on lg (stacked) */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-3xl bg-blue-50/50 border border-blue-100 p-8 shadow-sm dark:bg-blue-500/10 dark:border-blue-500/20 transition-colors hover:shadow-md">
-                <Briefcase className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+              <div className="rounded-3xl bg-brand-soft/60 border border-brand-muted p-8 shadow-sm dark:bg-brand-soft transition-colors hover:shadow-md">
+                <Briefcase className="h-8 w-8 text-brand" />
                 <h3 className="mt-4 font-serif text-xl font-semibold">Growth</h3>
                 <p className="mt-2 text-muted-foreground">Professional workshops & skill-building.</p>
               </div>
-              <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-8 shadow-sm dark:bg-indigo-500/10 dark:border-indigo-500/20 transition-colors hover:shadow-md">
-                <Users className="h-8 w-8 text-indigo-600 dark:text-indigo-400" />
+              <div className="rounded-3xl bg-indigo-50/50 border border-indigo-100 p-8 shadow-sm dark:bg-brand-soft dark:border-brand-muted transition-colors hover:shadow-md">
+                <Users className="h-8 w-8 text-indigo-600 dark:text-brand" />
                 <h3 className="mt-4 font-serif text-xl font-semibold">Community</h3>
                 <p className="mt-2 text-muted-foreground">A network of ambitious peers & alumni.</p>
               </div>
@@ -223,7 +230,7 @@ export default async function HomePage() {
                     key={offering.title}
                     title={offering.title}
                     description={offering.description}
-                    icon={<Icon className="h-7 w-7 text-blue-600 dark:text-blue-400" />}
+                    icon={<Icon className="h-7 w-7 text-brand" />}
                     isSanityIcon={false}
                   />
                 )
@@ -239,7 +246,7 @@ export default async function HomePage() {
           aria-hidden="true"
         />
         <div
-          className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/5 blur-[130px] pointer-events-none"
+          className="absolute left-0 bottom-0 h-[500px] w-[500px] rounded-full bg-indigo-500/5 dark:bg-sky-500/5 blur-[130px] pointer-events-none"
           aria-hidden="true"
         />
 
@@ -285,6 +292,31 @@ export default async function HomePage() {
           </div>
         </section>
 
+        {/* Photo Gallery */}
+        {galleryPhotos.length > 0 && (
+          <section className="py-12 sm:py-16 relative z-10">
+            <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+              <div className="mb-10 flex flex-col items-center gap-6 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+                <div>
+                  <h2 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+                    Gallery
+                  </h2>
+                  <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                    Moments from our recent events and community.
+                  </p>
+                </div>
+                <Button asChild variant="outline" size="lg" className="font-medium">
+                  <Link href="/gallery">
+                    View Full Gallery
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+              <PhotoCarousel photos={galleryPhotos} title="ABC Gallery" />
+            </div>
+          </section>
+        )}
+
         {/* Featured Event (Optional) */}
         {/* {featuredEvent && ...} */}
 
@@ -298,7 +330,7 @@ export default async function HomePage() {
             <div className="mt-8 flex justify-center gap-4">
               <Button asChild size="lg">
                 <Link
-                  href={settings?.joinLink || "/contact"}
+                  href={settings?.joinLink || "/links"}
                   target={settings?.joinLink ? "_blank" : undefined}
                   rel={settings?.joinLink ? "noopener noreferrer" : undefined}
                 >

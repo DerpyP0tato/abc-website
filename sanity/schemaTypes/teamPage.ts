@@ -42,7 +42,8 @@ export const teamPage = defineType({
                     ],
                 },
             ],
-            description: "Upload logos of companies where graduates have gone.",
+            description: "Upload logos of companies where graduates have gone. Drag to reorder: logos at the top of the list get the biggest bubbles.",
+            validation: (rule) => rule.max(20).warning("Only the first 20 logos are shown on the site."),
         }),
     ],
 })

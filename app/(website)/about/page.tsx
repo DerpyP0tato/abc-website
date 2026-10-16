@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
 import Image from "next/image"
 import { Users, Mic, Briefcase, GraduationCap, LineChart, Heart } from "lucide-react"
 import { client } from "@/sanity/lib/client"
@@ -111,15 +110,15 @@ export default async function AboutPage() {
             {/* Global Background Glow */}
             <div className="fixed inset-0 -z-10 bg-background pointer-events-none">
                 <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[100px] animate-blob" />
-                <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[100px] animate-blob animation-delay-2000" />
-                <div className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-indigo-500/10 rounded-full blur-[100px] animate-blob animation-delay-4000" />
+                <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-purple-500/10 dark:bg-sky-400/10 rounded-full blur-[100px] animate-blob animation-delay-2000" />
+                <div className="absolute bottom-[-10%] left-[20%] w-[600px] h-[600px] bg-indigo-500/10 dark:bg-sky-500/10 rounded-full blur-[100px] animate-blob animation-delay-4000" />
             </div>
 
             {/* Hero Section */}
             <section className="relative pt-8 pb-10 sm:pb-16 md:pt-12 overflow-hidden">
-                <div className="absolute top-0 right-0 -mr-20 -mt-20 h-96 w-96 rounded-full bg-blue-100/50 blur-3xl opacity-50" />
+                <div className="absolute top-0 right-0 -mr-20 -mt-20 h-96 w-96 rounded-full bg-blue-100/50 dark:bg-brand-soft blur-3xl opacity-50" />
                 <div className="mx-auto max-w-4xl px-8 relative z-10 text-center sm:px-6 lg:px-8">
-                    <span className="inline-block rounded-full bg-blue-100 dark:bg-blue-900/30 px-3 py-1 text-sm font-semibold text-blue-700 dark:text-blue-300 mb-6">
+                    <span className="inline-block rounded-full bg-brand-muted px-3 py-1 text-sm font-semibold text-brand-strong mb-6">
                         {content.heroPill}
                     </span>
                     <h1 className="font-serif text-5xl font-bold tracking-tight text-foreground sm:text-6xl">
@@ -174,7 +173,7 @@ export default async function AboutPage() {
                                 return (
                                     <Card key={offering.title} className="bg-card transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group">
                                         <CardHeader>
-                                            <div className="h-12 w-12 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                            <div className="h-12 w-12 rounded-xl bg-brand-soft text-brand flex items-center justify-center mb-4 group-hover:bg-brand group-hover:text-brand-foreground transition-colors">
                                                 <IconComponent className="h-6 w-6" />
                                             </div>
                                             <CardTitle className="font-bold text-xl">{offering.title}</CardTitle>
@@ -192,11 +191,11 @@ export default async function AboutPage() {
 
                     {/* Founding Story */}
                     <div className="mb-24 rounded-3xl bg-card p-8 sm:p-12 border shadow-sm relative overflow-hidden">
-                        <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-50/50 dark:bg-blue-500/10 blur-3xl opacity-60" />
+                        <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-blue-50/50 dark:bg-brand-soft blur-3xl opacity-60" />
 
                         <div className="relative z-10 grid gap-10 lg:grid-cols-2 lg:gap-12 items-center">
                             <div>
-                                <span className="inline-flex items-center rounded-full bg-blue-50 dark:bg-blue-900/30 px-3 py-1 text-xs font-medium text-blue-700 dark:text-blue-300 mb-6">
+                                <span className="inline-flex items-center rounded-full bg-brand-soft px-3 py-1 text-xs font-medium text-brand-strong mb-6">
                                     {content.foundingYear}
                                 </span>
                                 <h2 className="font-serif text-2xl font-bold text-foreground mb-6 sm:text-3xl">{content.foundingTitle}</h2>
@@ -217,22 +216,24 @@ export default async function AboutPage() {
                     </div>
 
                     {/* CTA Section */}
-                    <div className="rounded-[2.5rem] bg-blue-50 dark:bg-blue-950/20 px-6 py-16 sm:px-12 sm:py-24 text-center relative overflow-hidden border border-blue-100 dark:border-blue-900/50">
+                    <div className="rounded-[2.5rem] bg-brand-soft px-6 py-16 sm:px-12 sm:py-24 text-center relative overflow-hidden border border-brand-muted">
                         <div className="absolute inset-0 bg-white/40 dark:bg-transparent blur-[100px] rounded-full mix-blend-overlay" />
                         <div className="relative z-10 max-w-2xl mx-auto">
-                            <h2 className="font-serif text-2xl font-bold text-blue-900 dark:text-blue-100 sm:text-3xl">{content.ctaTitle}</h2>
-                            <p className="mt-6 text-lg text-blue-700/80 dark:text-blue-300/80 mb-10">
+                            <h2 className="font-serif text-2xl font-bold text-blue-900 dark:text-brand-strong sm:text-3xl">{content.ctaTitle}</h2>
+                            <p className="mt-6 text-lg text-blue-700/80 dark:text-muted-foreground mb-10">
                                 {content.ctaDescription}
                             </p>
                             <div className="flex flex-col gap-4 sm:flex-row justify-center">
-                                <Button asChild size="lg" className="bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20">
+                                <Button asChild size="lg" className="bg-brand text-brand-foreground hover:bg-brand/90 shadow-lg shadow-brand/20">
                                     <a href={settings?.joinLink || "https://forms.gle/"} target="_blank" rel="noopener noreferrer">
                                         Join Our Community
                                     </a>
                                 </Button>
-                                <Button asChild variant="outline" size="lg" className="border-blue-200 text-blue-700 hover:bg-blue-100 hover:text-blue-800 bg-transparent">
-                                    <Link href="/contact">Get in Touch</Link>
-                                </Button>
+                                {settings?.email && (
+                                    <Button asChild variant="outline" size="lg" className="border-brand-muted text-brand-strong hover:bg-brand-muted hover:text-brand-strong bg-transparent">
+                                        <a href={`mailto:${settings.email}`}>Get in Touch</a>
+                                    </Button>
+                                )}
                             </div>
                         </div>
                     </div>

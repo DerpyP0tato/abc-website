@@ -42,46 +42,60 @@
   --chart-3: 200 29% 63%;
   --chart-4: 210 42% 30%;
   --chart-5: 206 28% 49%;
+
+  /* Brand blue accents (icons, links, tinted badges/boxes). Light mode matches Tailwind blue-50/100/600/700. */
+  --brand: 221 83% 53%;
+  --brand-strong: 224 76% 48%;
+  --brand-foreground: 0 0% 100%;
+  --brand-soft: 214 100% 97%;
+  --brand-muted: 214 95% 93%;
 }
 
 .dark {
-  --background: 222.2 84% 4.9%;
-  /* Rich Dark Blue/Black */
+  /* Deep navy built from the brand color (#1e3c5a), less saturated so it reads as navy, not electric blue */
+  --background: 215 45% 7%;
   --foreground: 210 40% 98%;
 
-  --card: 222.2 84% 17%;
+  --card: 214 36% 12%;
   /* Lighter than background for clear separation */
   --card-foreground: 210 40% 98%;
 
-  --popover: 222.2 84% 17%;
+  --popover: 214 36% 12%;
   /* Match card */
   --popover-foreground: 210 40% 98%;
 
   --primary: 210 40% 98%;
   --primary-foreground: 222.2 47.4% 11.2%;
 
-  --secondary: 217.2 32.6% 17.5%;
+  --secondary: 214 30% 17%;
   --secondary-foreground: 210 40% 98%;
 
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
+  --muted: 214 30% 17%;
+  --muted-foreground: 213 20% 68%;
 
-  --accent: 217.2 32.6% 17.5%;
+  --accent: 214 30% 17%;
   --accent-foreground: 210 40% 98%;
 
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
 
-  --border: 217.2 32.6% 30%;
-  --input: 217.2 32.6% 25%;
+  --border: 214 25% 24%;
+  --input: 214 25% 22%;
   /* Lighter input for visibility */
-  --ring: 212.7 26.8% 83.9%;
+  --ring: 210 60% 75%;
 
   --chart-1: 220 70% 50%;
   --chart-2: 160 60% 45%;
   --chart-3: 30 80% 55%;
   --chart-4: 280 65% 60%;
   --chart-5: 340 75% 55%;
+
+  /* Soft sky blue that stays readable on navy, with quiet navy tints behind it */
+  --brand: 210 85% 72%;
+  --brand-strong: 210 90% 85%;
+  --brand-foreground: 215 45% 10%;
+  --brand-soft: 213 40% 14%;
+  --brand-muted: 213 36% 22%;
 }
 
 @theme inline {
@@ -111,6 +125,11 @@
   --color-chart-3: hsl(var(--chart-3));
   --color-chart-4: hsl(var(--chart-4));
   --color-chart-5: hsl(var(--chart-5));
+  --color-brand: hsl(var(--brand));
+  --color-brand-strong: hsl(var(--brand-strong));
+  --color-brand-foreground: hsl(var(--brand-foreground));
+  --color-brand-soft: hsl(var(--brand-soft));
+  --color-brand-muted: hsl(var(--brand-muted));
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -124,5 +143,24 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+@theme inline {
+  --animate-logo-float: logo-float 6s ease-in-out infinite alternate;
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes logo-float {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-15px);
+    }
   }
 }

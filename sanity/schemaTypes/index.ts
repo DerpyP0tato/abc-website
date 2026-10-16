@@ -7,7 +7,8 @@ import { homePage } from "./homePage"
 import { linkTree } from "./linkTree"
 import { pastExecutiveBoard } from "./pastExecutiveBoard"
 import { aboutPage } from "./aboutPage"
+import { galleryAlbum } from "./galleryAlbum"
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [event, teamMember, teamPage, settings, homePage, linkTree, pastExecutiveBoard, aboutPage],
+  types: [event, teamMember, teamPage, settings, homePage, linkTree, pastExecutiveBoard, aboutPage, galleryAlbum],
 }

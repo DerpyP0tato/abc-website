@@ -151,14 +151,14 @@ export default async function LinksPage() {
 
                 {/* Fallback if no sections exist yet */}
                 {!data?.sections && (
-                    <div className="text-center text-slate-500">
+                    <div className="text-center text-slate-500 dark:text-muted-foreground">
                         <p>No links configured yet.</p>
                     </div>
                 )}
             </div>
 
             <div className="mt-12">
-                <Link href="/" className="text-sm font-medium text-slate-400 hover:text-slate-600">
+                <Link href="/" className="text-sm font-medium text-slate-400 hover:text-slate-600 dark:hover:text-foreground">
                     Asian Business Collective
                 </Link>
             </div>

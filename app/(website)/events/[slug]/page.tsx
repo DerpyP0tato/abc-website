@@ -7,8 +7,9 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { client } from "@/sanity/lib/client"
-import { EVENT_BY_SLUG_QUERY } from "@/sanity/lib/queries"
-import type { Event } from "@/sanity/lib/types"
+import { EVENT_BY_SLUG_QUERY, EVENT_ALBUMS_QUERY } from "@/sanity/lib/queries"
+import type { Event, GalleryAlbum } from "@/sanity/lib/types"
+import { PhotoGallery } from "@/components/photo-gallery"
 import { urlFor } from "@/sanity/lib/image"
 import { PortableTextRenderer } from "@/components/portable-text"
 import { groq } from "next-sanity"
@@ -30,6 +31,15 @@ async function getEvent(slug: string) {
   } catch (error) {
     console.error("Error fetching event:", error)
     return null
+  }
+}
+
+async function getEventAlbums(eventId: string) {
+  try {
+    return await client.fetch<GalleryAlbum[]>(EVENT_ALBUMS_QUERY, { eventId })
+  } catch (error) {
+    console.error("Error fetching event albums:", error)
+    return []
   }
 }
 
@@ -55,6 +65,9 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
     notFound()
   }
 
+  // Gallery albums linked to this event in Sanity
+  const albums = await getEventAlbums(event._id)
+
   const startDate = new Date(event.startDateTime)
   const endDate = event.endDateTime ? new Date(event.endDateTime) : null
   const imageUrl = event.coverImage ? urlFor(event.coverImage).width(800).height(800).url() : null
@@ -67,7 +80,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
   return (
     <div className="flex flex-col min-h-screen bg-muted/10">
       {/* Breadcrumb / Top Nav */}
-      <div className="border-b bg-background/50 backdrop-blur-sm sticky top-16 z-10 hidden sm:block">
+      <div className="border-b bg-background/50 backdrop-blur-sm sticky top-16 md:top-[4.5rem] z-10 hidden sm:block">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
           <Link
             href="/events"
@@ -140,7 +153,7 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             </div>
 
             {/* RIGHT COLUMN: Sidebar (Sticky) (5 cols) */}
-            <div className="mt-12 lg:mt-0 lg:col-span-5 lg:sticky lg:top-24 space-y-8">
+            <div className="mt-12 lg:mt-0 lg:col-span-5 lg:sticky lg:top-[8.5rem] space-y-8">
 
               {/* 1. The Image (Hero for this column) */}
               {imageUrl && (
@@ -203,6 +216,20 @@ export default async function EventPage({ params }: { params: Promise<{ slug: st
             </div>
 
           </div>
+
+          {albums.length > 0 && (
+            <section className="mt-16 border-t pt-12 sm:mt-20">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight sm:text-4xl">Photos</h2>
+              <div className="mt-8 space-y-12">
+                {albums.map((album) => (
+                  <div key={album._id}>
+                    {albums.length > 1 && <h3 className="mb-6 font-serif text-xl font-semibold">{album.title}</h3>}
+                    <PhotoGallery photos={album.photos} title={album.title} />
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </main>
     </div>

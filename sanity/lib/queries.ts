@@ -185,3 +185,49 @@ export const ABOUT_PAGE_QUERY = groq`
     ctaDescription
   }
 `
+
+const GALLERY_ALBUM_FIELDS = groq`
+  _id,
+  title,
+  date,
+  description,
+  "event": event->{ title, slug },
+  // Skip photo slots whose upload never finished
+  photos[defined(asset)] {
+    _key,
+    alt,
+    caption,
+    asset,
+    hotspot,
+    crop,
+    "dimensions": asset->metadata.dimensions { width, height },
+    "color": asset->metadata.palette.dominant.background
+  }
+`
+
+export const GALLERY_ALBUMS_QUERY = groq`
+  *[_type == "galleryAlbum" && hidden != true && count(photos[defined(asset)]) > 0] | order(coalesce(date, _createdAt) desc) {
+    ${GALLERY_ALBUM_FIELDS}
+  }
+`
+
+export const GALLERY_RECENT_ALBUMS_QUERY = groq`
+  *[_type == "galleryAlbum" && hidden != true && count(photos[defined(asset)]) > 0] | order(coalesce(date, _createdAt) desc) [0...3] {
+    ${GALLERY_ALBUM_FIELDS}
+  }
+`
+
+export const EVENT_ALBUMS_QUERY = groq`
+  *[_type == "galleryAlbum" && hidden != true && count(photos[defined(asset)]) > 0 && event._ref == $eventId] | order(coalesce(date, _createdAt) desc) {
+    ${GALLERY_ALBUM_FIELDS}
+  }
+`
+
+export const NOT_FOUND_PAGE_QUERY = groq`
+  *[_type == "settings"][0].notFoundPage {
+    "images": images[defined(asset)],
+    caption,
+    title,
+    message
+  }
+`

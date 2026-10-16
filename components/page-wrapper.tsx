@@ -7,7 +7,7 @@ export function PageWrapper({ children }: { children: React.ReactNode }) {
     const isHomePage = pathname === "/"
 
     return (
-        <div className={isHomePage ? "" : "pt-16 md:pt-24"}>
+        <div className={isHomePage ? "" : "pt-16 md:pt-[4.5rem]"}>
             {children}
         </div>
     )
