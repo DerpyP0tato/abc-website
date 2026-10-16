@@ -6,22 +6,29 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { client } from "@/sanity/lib/client"
-import { HOME_PAGE_QUERY, EVENTS_UPCOMING_QUERY, SETTINGS_QUERY } from "@/sanity/lib/queries"
+import { HOME_PAGE_QUERY, EVENTS_UPCOMING_QUERY, SETTINGS_QUERY, GALLERY_RECENT_ALBUMS_QUERY } from "@/sanity/lib/queries"
 import { urlFor } from "@/sanity/lib/image"
 import { EventCard } from "@/components/event-card"
 import { CompanyLogos } from "@/components/company-logos"
 import { BentoGrid } from "@/components/home-about"
-import type { Event } from "@/sanity/lib/types"
+import type { Event, GalleryAlbum } from "@/sanity/lib/types"
 import { FeatureCard } from "@/components/feature-card"
+import { PhotoGallery } from "@/components/photo-gallery"
 
 export const revalidate = 60
 
 export default async function HomePage() {
-  const [homePageData, upcomingEvents, settings] = await Promise.all([
+  const [homePageData, upcomingEvents, settings, galleryAlbums] = await Promise.all([
     client.fetch(HOME_PAGE_QUERY),
     client.fetch<Event[]>(EVENTS_UPCOMING_QUERY),
-    client.fetch(SETTINGS_QUERY).catch(() => null)
+    client.fetch(SETTINGS_QUERY).catch(() => null),
+    client.fetch<GalleryAlbum[]>(GALLERY_RECENT_ALBUMS_QUERY).catch(() => [])
   ])
+
+  // Latest photos across the most recent albums
+  const galleryPhotos = galleryAlbums
+    .flatMap((album) => album.photos.map((photo) => ({ ...photo, albumTitle: album.title })))
+    .slice(0, 8)
 
   // Default offerings fallback
   const defaultOfferings = [
@@ -284,6 +291,31 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Photo Gallery */}
+        {galleryPhotos.length > 0 && (
+          <section className="py-12 sm:py-16 relative z-10">
+            <div className="mx-auto max-w-7xl px-8 sm:px-6 lg:px-8">
+              <div className="mb-10 flex flex-col items-center gap-6 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+                <div>
+                  <h2 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+                    Gallery
+                  </h2>
+                  <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+                    Moments from our recent events and community.
+                  </p>
+                </div>
+                <Button asChild variant="outline" size="lg" className="font-medium">
+                  <Link href="/gallery">
+                    View Full Gallery
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+              <PhotoGallery photos={galleryPhotos} title="ABC Gallery" />
+            </div>
+          </section>
+        )}
 
         {/* Featured Event (Optional) */}
         {/* {featuredEvent && ...} */}

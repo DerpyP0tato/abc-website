@@ -185,3 +185,33 @@ export const ABOUT_PAGE_QUERY = groq`
     ctaDescription
   }
 `
+
+const GALLERY_ALBUM_FIELDS = groq`
+  _id,
+  title,
+  date,
+  description,
+  "event": event->{ title, slug },
+  photos[] {
+    _key,
+    alt,
+    caption,
+    asset,
+    hotspot,
+    crop,
+    "dimensions": asset->metadata.dimensions { width, height },
+    "lqip": asset->metadata.lqip
+  }
+`
+
+export const GALLERY_ALBUMS_QUERY = groq`
+  *[_type == "galleryAlbum" && hidden != true && count(photos) > 0] | order(date desc) {
+    ${GALLERY_ALBUM_FIELDS}
+  }
+`
+
+export const GALLERY_RECENT_ALBUMS_QUERY = groq`
+  *[_type == "galleryAlbum" && hidden != true && count(photos) > 0] | order(date desc) [0...3] {
+    ${GALLERY_ALBUM_FIELDS}
+  }
+`

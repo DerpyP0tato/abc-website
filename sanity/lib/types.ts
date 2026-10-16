@@ -95,3 +95,32 @@ export type AboutPageData = {
   ctaTitle?: string
   ctaDescription?: string
 }
+
+export type GalleryPhoto = {
+  _key: string
+  alt?: string
+  caption?: string
+  asset: {
+    _ref: string
+    _type: "reference"
+  }
+  hotspot?: { x: number; y: number; height: number; width: number }
+  crop?: { top: number; bottom: number; left: number; right: number }
+  dimensions?: { width: number; height: number }
+  lqip?: string
+  albumTitle?: string
+}
+
+export type GalleryAlbum = {
+  _id: string
+  title: string
+  date: string
+  description?: string
+  event?: {
+    title: string
+    slug: {
+      current: string
+    }
+  }
+  photos: GalleryPhoto[]
+}

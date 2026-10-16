@@ -63,12 +63,13 @@ export default async function TeamMemberPage({ params }: PageProps) {
 
                 <div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
                     {/* Left Column: Image */}
-                    <div className="lg:col-span-6">
-                        <div className="relative aspect-square w-full overflow-hidden rounded-full shadow-2xl ring-1 ring-border/10">
+                    <div className="flex items-center lg:col-span-5 lg:justify-center">
+                        <div className="relative aspect-square w-full overflow-hidden rounded-full shadow-2xl ring-1 ring-border/10 lg:max-w-xs">
                             <Image
                                 src={imageUrl || "/placeholder-user.jpg"}
                                 alt={member.name}
                                 fill
+                                sizes="(max-width: 1024px) 100vw, 320px"
                                 className="object-cover"
                                 priority
                             />
@@ -76,7 +77,7 @@ export default async function TeamMemberPage({ params }: PageProps) {
                     </div>
 
                     {/* Right Column: Details */}
-                    <div className="flex flex-col justify-center space-y-6 lg:col-span-6">
+                    <div className="flex flex-col justify-center space-y-6 lg:col-span-7">
                         <div className="space-y-2">
                             <h1 className="font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
                                 {member.name}

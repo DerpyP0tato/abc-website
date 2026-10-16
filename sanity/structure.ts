@@ -1,4 +1,4 @@
-import { CalendarIcon, UsersIcon, LinkIcon, DocumentIcon } from "@sanity/icons"
+import { CalendarIcon, UsersIcon, LinkIcon, DocumentIcon, ImagesIcon } from "@sanity/icons"
 import type { StructureBuilder } from "sanity/structure"
 
 export const structure = (S: StructureBuilder) =>
@@ -64,6 +64,14 @@ export const structure = (S: StructureBuilder) =>
                     .defaultOrdering([{ field: "startDateTime", direction: "desc" }]),
                 ),
             ]),
+        ),
+      S.listItem()
+        .title("Photo Gallery")
+        .icon(ImagesIcon)
+        .child(
+          S.documentTypeList("galleryAlbum")
+            .title("Gallery Albums")
+            .defaultOrdering([{ field: "date", direction: "desc" }]),
         ),
       S.divider(),
       S.listItem()
