@@ -48,7 +48,7 @@ export const galleryAlbum = defineType({
               name: "alt",
               title: "Alt Text",
               type: "string",
-              validation: (rule) => rule.warning("Describe the photo for screen readers."),
+              validation: (rule) => rule.required().warning("Describe the photo for screen readers."),
               description: "Short description of the photo (e.g., 'Members posing at the banquet').",
             }),
             defineField({
